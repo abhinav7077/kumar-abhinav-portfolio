@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kumar Abhinav | Security Engineer & AI Specialist</title>
+    <meta name="description" content="Kumar Abhinav — Security Engineer & AI Specialist. Building automated triage architectures, custom UEBA engines, and AI-native defense systems.">
+    <meta name="keywords" content="Kumar Abhinav, Security Engineer, AI Security, SOC Automation, UEBA, Wazuh, DevSecOps, Python, Cybersecurity, Agentic AI">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-effects">
+        <canvas id="particle-canvas"></canvas>
+        <div class="bg-gradient-orb orb-1"></div>
+        <div class="bg-gradient-orb orb-2"></div>
+        <div class="bg-gradient-orb orb-3"></div>
+        <div class="bg-noise"></div>
+        <div class="bg-grid"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#hero" class="nav-logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                </div>
+                <span class="logo-text">K<span class="logo-dot">.</span>Abhinav</span>
+            </a>
+            <div class="nav-links" id="nav-links">
+                <a href="#about" class="nav-link" data-text="About">About</a>
+                <a href="#projects" class="nav-link" data-text="Projects">Projects</a>
+                <a href="#arsenal" class="nav-link" data-text="Arsenal">Arsenal</a>
+                <a href="#experience" class="nav-link" data-text="Experience">Experience</a>
+                <a href="#research" class="nav-link" data-text="Research">Research</a>
+                <a href="#contact" class="nav-link nav-cta">
+                    <span class="cta-pulse"></span>
+                    Let's Talk
+                </a>
+            </div>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+                <span class="toggle-line"></span>
+                <span class="toggle-line"></span>
+                <span class="toggle-line"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ==================== HERO ==================== -->
+    <section class="hero" id="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-eyebrow">
+                    <div class="eyebrow-line"></div>
+                    <span>Security Engineer & AI Specialist</span>
+                    <div class="eyebrow-line"></div>
+                </div>
+
+                <h1 class="hero-title">
+                    <span class="title-line title-line-1">Kumar</span>
+                    <span class="title-line title-line-2">Abhinav<span class="title-accent">.</span></span>
+                </h1>
+
+                <p class="hero-subtitle">
+                    Bridging the gap between <span class="text-glow">SOC vigilance</span> and 
+                    <span class="text-glow-alt">Agentic AI</span>. Currently building automated triage 
+                    architectures, custom UEBA engines, and AI-native defense systems.
+                </p>
+
+                <div class="hero-ctas">
+                    <a href="https://github.com/" target="_blank" rel="noopener" class="cta-btn cta-primary" id="cta-github">
+                        <svg class="cta-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        <span>GitHub</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/abhinav-cybersec" target="_blank" rel="noopener" class="cta-btn cta-secondary" id="cta-linkedin">
+                        <svg class="cta-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="#" class="cta-btn cta-outline" id="cta-resume">
+                        <svg class="cta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                        <span>Resume</span>
+                    </a>
+                </div>
+
+                <div class="hero-status-bar">
+                    <div class="status-item">
+                        <span class="status-dot online"></span>
+                        <span>Open to Collaborate</span>
+                    </div>
+                    <div class="status-separator">|</div>
+                    <div class="status-item">
+                        <span class="status-icon">📍</span>
+                        <span>Bengaluru, India</span>
+                    </div>
+                    <div class="status-separator">|</div>
+                    <div class="status-item">
+                        <span class="status-icon">🏢</span>
+                        <span>Security Engineer @ ESDS</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Visual: 3D Character -->
+            <div class="hero-visual">
+                <div class="character-container">
+                    <div class="character-glow"></div>
+                    <div class="character-rings">
+                        <div class="char-ring ring-outer"></div>
+                        <div class="char-ring ring-inner"></div>
+                    </div>
+                    <img 
+                        src="hero-character.png" 
+                        alt="3D claymation render of Kumar Abhinav — cybersecurity engineer at a futuristic workstation with holographic security displays" 
+                        class="character-img"
+                        loading="eager"
+                    >
+                    <!-- Floating labels around character -->
+                    <div class="float-tag tag-1">
+                        <span class="ft-dot"></span> SIEM
+                    </div>
+                    <div class="float-tag tag-2">
+                        <span class="ft-dot green"></span> UEBA
+                    </div>
+                    <div class="float-tag tag-3">
+                        <span class="ft-dot purple"></span> LLM
+                    </div>
+                    <div class="float-tag tag-4">
+                        <span class="ft-dot amber"></span> SOC
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-cue">
+            <span>Explore</span>
+            <div class="scroll-arrow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ABOUT ==================== -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="section-label">
+                <span class="label-number">01</span>
+                <span class="label-text">About</span>
+                <div class="label-line"></div>
+            </div>
+
+            <div class="about-layout">
+                <div class="about-left">
+                    <h2 class="about-title">
+                        Security as Code<span class="accent-dot">.</span>
+                    </h2>
+                    <p class="about-philosophy">
+                        I believe in shifting defense from <em>manual, reactive monitoring</em> to an 
+                        <strong>autonomous, proactive architecture</strong> where security is baked into 
+                        every infrastructure layer.
+                    </p>
+                    <div class="about-manifesto">
+                        <div class="manifesto-item">
+                            <div class="manifesto-number">01</div>
+                            <div class="manifesto-content">
+                                <h4>SOC Automation</h4>
+                                <p>Designing LLM-based solutions to automate incident triage, streamline response, and eliminate alert fatigue.</p>
+                            </div>
+                        </div>
+                        <div class="manifesto-item">
+                            <div class="manifesto-number">02</div>
+                            <div class="manifesto-content">
+                                <h4>Cloud Architecture</h4>
+                                <p>Implementing MCRA and Well-Architected Frameworks (WAF) to build resilient, enterprise-grade cloud layers.</p>
+                            </div>
+                        </div>
+                        <div class="manifesto-item">
+                            <div class="manifesto-number">03</div>
+                            <div class="manifesto-content">
+                                <h4>Security by Design</h4>
+                                <p>Shifting from manual detection to automated defense — ensuring security is code, not an afterthought.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-right">
+                    <div class="about-terminal">
+                        <div class="term-chrome">
+                            <div class="term-dots">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <span class="term-title">~/abhinav — zsh</span>
+                        </div>
+                        <div class="term-body" id="terminal-body">
+                            <div class="term-line">
+                                <span class="term-prompt">❯</span>
+                                <span class="term-cmd">whoami</span>
+                            </div>
+                            <div class="term-output">Kumar Abhinav — Security Engineer @ ESDS</div>
+                            <div class="term-line">
+                                <span class="term-prompt">❯</span>
+                                <span class="term-cmd">cat /etc/mission</span>
+                            </div>
+                            <div class="term-output">Evolving Security Operations into<br>proactive, AI-native defense systems.</div>
+                            <div class="term-line">
+                                <span class="term-prompt">❯</span>
+                                <span class="term-cmd">ls ~/projects --active</span>
+                            </div>
+                            <div class="term-output dir-list">
+                                <span>📂 agentic-alert-system/</span>
+                                <span>📂 wazuh-ueba-engine/</span>
+                                <span>📂 soc2-reader/</span>
+                            </div>
+                            <div class="term-line">
+                                <span class="term-prompt">❯</span>
+                                <span class="term-cmd">echo $PHILOSOPHY</span>
+                            </div>
+                            <div class="term-output highlight-output">"Defense should be autonomous, not manual."</div>
+                            <div class="term-line">
+                                <span class="term-prompt">❯</span>
+                                <span class="term-cursor">_</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== PROJECTS ==================== -->
+    <section class="section section-dark" id="projects">
+        <div class="container">
+            <div class="section-label">
+                <span class="label-number">02</span>
+                <span class="label-text">Proof of Work</span>
+                <div class="label-line"></div>
+            </div>
+
+            <div class="projects-header">
+                <h2 class="projects-title">What I'm Building<span class="accent-dot">.</span></h2>
+                <p class="projects-subtitle">Active case studies pushing the boundaries of AI-native security. These aren't concepts — they're production-grade tools in development.</p>
+            </div>
+
+            <div class="projects-showcase">
+                <!-- Project 1 -->
+                <article class="project-card" id="project-agentic">
+                    <div class="card-border-glow"></div>
+                    <div class="card-inner">
+                        <div class="card-top">
+                            <div class="card-badge">
+                                <span class="badge-pulse"></span>
+                                Active Development
+                            </div>
+                            <div class="card-number">01</div>
+                        </div>
+                        <div class="card-icon-wrap">
+                            <div class="card-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <h3 class="card-title">Agentic Alert Monitoring System</h3>
+                        <p class="card-pitch">An intelligent SOC automation tool that uses <strong>LLM agents</strong> to investigate, triage, and contextualize alerts — slashing alert fatigue and reducing MTTR.</p>
+                        <div class="card-stack">
+                            <span class="stack-chip">Python</span>
+                            <span class="stack-chip">LangChain / CrewAI</span>
+                            <span class="stack-chip">SIEM APIs</span>
+                        </div>
+                        <ul class="card-features">
+                            <li><span class="feat-arrow">→</span> Autonomous multi-agent alert investigation</li>
+                            <li><span class="feat-arrow">→</span> Contextual enrichment from threat intel feeds</li>
+                            <li><span class="feat-arrow">→</span> Automated playbook execution & escalation</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- Project 2 -->
+                <article class="project-card" id="project-ueba">
+                    <div class="card-border-glow"></div>
+                    <div class="card-inner">
+                        <div class="card-top">
+                            <div class="card-badge">
+                                <span class="badge-pulse"></span>
+                                Active Development
+                            </div>
+                            <div class="card-number">02</div>
+                        </div>
+                        <div class="card-icon-wrap">
+                            <div class="card-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <h3 class="card-title">Wazuh UEBA Engine</h3>
+                        <p class="card-pitch">A custom <strong>User and Entity Behavior Analytics</strong> engine designed to layer over Wazuh SIEM — catching insider threats and anomalous account activity through ML-driven baselining.</p>
+                        <div class="card-stack">
+                            <span class="stack-chip">Python</span>
+                            <span class="stack-chip">Machine Learning</span>
+                            <span class="stack-chip">Wazuh API</span>
+                        </div>
+                        <ul class="card-features">
+                            <li><span class="feat-arrow">→</span> ML behavioral baselining per user/entity</li>
+                            <li><span class="feat-arrow">→</span> Insider threat & anomaly scoring engine</li>
+                            <li><span class="feat-arrow">→</span> Native Wazuh integration & dashboards</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- Project 3 -->
+                <article class="project-card" id="project-soc2">
+                    <div class="card-border-glow"></div>
+                    <div class="card-inner">
+                        <div class="card-top">
+                            <div class="card-badge">
+                                <span class="badge-pulse"></span>
+                                Active Development
+                            </div>
+                            <div class="card-number">03</div>
+                        </div>
+                        <div class="card-icon-wrap">
+                            <div class="card-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <h3 class="card-title">SOC 2 Reader for Auditors</h3>
+                        <p class="card-pitch">An <strong>AI-powered compliance assistant</strong> that parses complex infrastructure logs and policies, mapping them directly to SOC 2 trust principles for rapid audit readiness.</p>
+                        <div class="card-stack">
+                            <span class="stack-chip">LLMs</span>
+                            <span class="stack-chip">RAG Pipeline</span>
+                            <span class="stack-chip">Python</span>
+                        </div>
+                        <ul class="card-features">
+                            <li><span class="feat-arrow">→</span> Intelligent SOC 2 report parsing & mapping</li>
+                            <li><span class="feat-arrow">→</span> RAG-powered control gap analysis</li>
+                            <li><span class="feat-arrow">→</span> Audit-ready summary & evidence generation</li>
+                        </ul>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ARSENAL ==================== -->
+    <section class="section" id="arsenal">
+        <div class="container">
+            <div class="section-label">
+                <span class="label-number">03</span>
+                <span class="label-text">Technical Arsenal</span>
+                <div class="label-line"></div>
+            </div>
+
+            <h2 class="arsenal-title">Tools & Expertise<span class="accent-dot">.</span></h2>
+
+            <div class="arsenal-grid">
+                <div class="arsenal-category" data-category="secops">
+                    <div class="cat-header">
+                        <div class="cat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                        </div>
+                        <h3>Security Operations</h3>
+                    </div>
+                    <div class="cat-skills">
+                        <div class="skill-pill">IBM QRadar</div>
+                        <div class="skill-pill">Splunk</div>
+                        <div class="skill-pill">Seceon</div>
+                        <div class="skill-pill">Wazuh</div>
+                        <div class="skill-pill">Incident Triage</div>
+                        <div class="skill-pill">SLA Management</div>
+                        <div class="skill-pill">UEBA</div>
+                        <div class="skill-pill">Threat Detection</div>
+                    </div>
+                </div>
+
+                <div class="arsenal-category" data-category="ai">
+                    <div class="cat-header">
+                        <div class="cat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        </div>
+                        <h3>AI & Automation</h3>
+                    </div>
+                    <div class="cat-skills">
+                        <div class="skill-pill">Python</div>
+                        <div class="skill-pill">LLM Orchestration</div>
+                        <div class="skill-pill">LangChain</div>
+                        <div class="skill-pill">CrewAI</div>
+                        <div class="skill-pill">RAG Pipelines</div>
+                        <div class="skill-pill">DevSecOps</div>
+                        <div class="skill-pill">Security Automation</div>
+                        <div class="skill-pill">ML for Security</div>
+                    </div>
+                </div>
+
+                <div class="arsenal-category" data-category="cloud">
+                    <div class="cat-header">
+                        <div class="cat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
+                        </div>
+                        <h3>Cloud & Compliance</h3>
+                    </div>
+                    <div class="cat-skills">
+                        <div class="skill-pill">Cloud Adoption Framework</div>
+                        <div class="skill-pill">MCRA</div>
+                        <div class="skill-pill">Zero Trust</div>
+                        <div class="skill-pill">SOC 2 Compliance</div>
+                        <div class="skill-pill">Well-Architected Framework</div>
+                        <div class="skill-pill">Security Posture</div>
+                    </div>
+                </div>
+
+                <div class="arsenal-category" data-category="offensive">
+                    <div class="cat-header">
+                        <div class="cat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                        </div>
+                        <h3>Offensive Security</h3>
+                    </div>
+                    <div class="cat-skills">
+                        <div class="skill-pill">Penetration Testing</div>
+                        <div class="skill-pill">Metasploit</div>
+                        <div class="skill-pill">Nmap</div>
+                        <div class="skill-pill">Vulnerability Assessment</div>
+                        <div class="skill-pill">Web App Security</div>
+                        <div class="skill-pill">Ethical Hacking</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== EXPERIENCE ==================== -->
+    <section class="section section-dark" id="experience">
+        <div class="container">
+            <div class="section-label">
+                <span class="label-number">04</span>
+                <span class="label-text">Experience</span>
+                <div class="label-line"></div>
+            </div>
+
+            <h2 class="exp-title">Career Timeline<span class="accent-dot">.</span></h2>
+
+            <div class="timeline">
+                <!-- EXP 1 -->
+                <div class="tl-item">
+                    <div class="tl-line-wrap">
+                        <div class="tl-dot active"></div>
+                        <div class="tl-line"></div>
+                    </div>
+                    <div class="tl-card">
+                        <div class="tl-card-top">
+                            <div>
+                                <h3 class="tl-role">Security Associate</h3>
+                                <span class="tl-company">ESDS Software Solution Limited</span>
+                            </div>
+                            <span class="tl-date">Nov 2024 — Present</span>
+                        </div>
+                        <ul class="tl-details">
+                            <li>Manage the full Security Incident Lifecycle (detection → resolution) using <strong>Seceon</strong> and <strong>IBM QRadar</strong> SIEMs</li>
+                            <li>Develop Client Security Posture Reports with actionable maturity recommendations, identifying gaps in security designs</li>
+                            <li>Support Client Security Integration — onboarding new security tools into the central SOC framework</li>
+                            <li>Automate SOC workflows using Python-driven pipelines and LLM-based triage systems</li>
+                        </ul>
+                        <div class="tl-techs">
+                            <span>IBM QRadar</span><span>Seceon</span><span>SOC</span><span>Python</span><span>Automation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EXP 2 -->
+                <div class="tl-item">
+                    <div class="tl-line-wrap">
+                        <div class="tl-dot"></div>
+                        <div class="tl-line"></div>
+                    </div>
+                    <div class="tl-card">
+                        <div class="tl-card-top">
+                            <div>
+                                <h3 class="tl-role">Penetration Testing Intern</h3>
+                                <span class="tl-company">CFSS Cyber & Forensics Security Solutions</span>
+                            </div>
+                            <span class="tl-date">Mar — Apr 2024</span>
+                        </div>
+                        <ul class="tl-details">
+                            <li>Performed comprehensive vulnerability assessments on web applications and VulnHub labs</li>
+                            <li>Utilized Metasploit and Nmap to execute penetration tests across multiple attack surfaces</li>
+                            <li>Developed actionable reports detailing vulnerabilities and remediation recommendations</li>
+                        </ul>
+                        <div class="tl-techs">
+                            <span>Metasploit</span><span>Nmap</span><span>Pentesting</span><span>Vuln Assessment</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EXP 3 -->
+                <div class="tl-item">
+                    <div class="tl-line-wrap">
+                        <div class="tl-dot"></div>
+                    </div>
+                    <div class="tl-card">
+                        <div class="tl-card-top">
+                            <div>
+                                <h3 class="tl-role">Application Penetration Tester</h3>
+                                <span class="tl-company">THECYBERHOST™</span>
+                            </div>
+                            <span class="tl-date">Aug — Sep 2023</span>
+                        </div>
+                        <ul class="tl-details">
+                            <li>Conducted application-level penetration testing on client web applications</li>
+                            <li>Identified and documented security vulnerabilities with severity classifications</li>
+                        </ul>
+                        <div class="tl-techs">
+                            <span>AppSec</span><span>Web Security</span><span>Pentesting</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Education & Certs inline -->
+            <div class="credentials-row">
+                <div class="cred-block">
+                    <h3 class="cred-heading">Education</h3>
+                    <div class="cred-item main-cred">
+                        <span class="cred-emoji">🎓</span>
+                        <div>
+                            <strong>B.Tech — Cybersecurity</strong>
+                            <span>Dayananda Sagar Institutions • 2020–2024</span>
+                        </div>
+                    </div>
+                    <div class="cred-item">
+                        <span class="cred-emoji">📚</span>
+                        <div>
+                            <strong>12th PUC — PCM</strong>
+                            <span>Sri Chaitanya College • 2018–2020</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="cred-block">
+                    <h3 class="cred-heading">Certifications</h3>
+                    <div class="certs-list">
+                        <div class="cert-chip">🛡️ Fortinet Certified Associate — Cybersecurity</div>
+                        <div class="cert-chip">🔐 Zero Trust & Best Practice Frameworks</div>
+                        <div class="cert-chip">💀 Ethical Hacking</div>
+                        <div class="cert-chip">⚙️ Ansible Automation for Network Engineers</div>
+                        <div class="cert-chip">📊 SOC & SIEM — Splunk & ELK</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== RESEARCH ==================== -->
+    <section class="section" id="research">
+        <div class="container">
+            <div class="section-label">
+                <span class="label-number">05</span>
+                <span class="label-text">Research & Learning</span>
+                <div class="label-line"></div>
+            </div>
+
+            <div class="research-layout">
+                <div class="research-intro">
+                    <h2 class="research-title">Continuous Learning<span class="accent-dot">.</span></h2>
+                    <p class="research-desc">
+                        Actively exploring the intersection of AI and Security — staying ahead of emerging threats 
+                        while building the defensive tools of tomorrow.
+                    </p>
+                </div>
+
+                <div class="research-grid">
+                    <div class="research-card" id="research-llm">
+                        <div class="rc-icon">🧠</div>
+                        <h4>Securing LLM Pipelines</h4>
+                        <p>Researching defense mechanisms against prompt injection, data poisoning, and model extraction attacks on production LLM systems.</p>
+                        <div class="rc-tags">
+                            <span>Prompt Injection</span>
+                            <span>Data Poisoning</span>
+                            <span>Model Security</span>
+                        </div>
+                    </div>
+
+                    <div class="research-card" id="research-owasp">
+                        <div class="rc-icon">📋</div>
+                        <h4>OWASP Top 10 for LLMs</h4>
+                        <p>Implementing and testing the OWASP Top 10 vulnerability categories specific to Large Language Models in real-world deployments.</p>
+                        <div class="rc-tags">
+                            <span>OWASP</span>
+                            <span>LLM Vulns</span>
+                            <span>Best Practices</span>
+                        </div>
+                    </div>
+
+                    <div class="research-card" id="research-agentic">
+                        <div class="rc-icon">🤖</div>
+                        <h4>Agentic AI for SOC</h4>
+                        <p>Exploring multi-agent architectures for autonomous security operations — from alert triage to incident response orchestration.</p>
+                        <div class="rc-tags">
+                            <span>Multi-Agent</span>
+                            <span>Autonomous SOC</span>
+                            <span>Orchestration</span>
+                        </div>
+                    </div>
+
+                    <div class="research-card" id="research-ueba">
+                        <div class="rc-icon">📊</div>
+                        <h4>Behavioral Analytics & ML</h4>
+                        <p>Building ML models for user behavior baselining, anomaly detection, and insider threat identification across enterprise environments.</p>
+                        <div class="rc-tags">
+                            <span>UEBA</span>
+                            <span>Anomaly Detection</span>
+                            <span>ML Models</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CONTACT ==================== -->
+    <section class="section section-dark" id="contact">
+        <div class="container">
+            <div class="contact-layout">
+                <div class="contact-left">
+                    <div class="section-label">
+                        <span class="label-number">06</span>
+                        <span class="label-text">Get In Touch</span>
+                        <div class="label-line"></div>
+                    </div>
+                    <h2 class="contact-title">Let's Build<br>Something Secure<span class="accent-dot">.</span></h2>
+                    <p class="contact-desc">
+                        Interested in collaborating on security projects, discussing AI-native defense architectures, 
+                        or just want to connect? I'm always open to conversations that push the boundaries of security automation.
+                    </p>
+                </div>
+                <div class="contact-right">
+                    <a href="mailto:singhkumaraniah@gmail.com" class="contact-link" id="contact-email-link">
+                        <div class="cl-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        </div>
+                        <div class="cl-info">
+                            <span class="cl-label">Email</span>
+                            <span class="cl-value">singhkumaraniah@gmail.com</span>
+                        </div>
+                        <div class="cl-arrow">→</div>
+                    </a>
+                    <a href="https://www.linkedin.com/in/abhinav-cybersec" target="_blank" rel="noopener" class="contact-link" id="contact-linkedin-link">
+                        <div class="cl-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </div>
+                        <div class="cl-info">
+                            <span class="cl-label">LinkedIn</span>
+                            <span class="cl-value">linkedin.com/in/abhinav-cybersec</span>
+                        </div>
+                        <div class="cl-arrow">→</div>
+                    </a>
+                    <a href="https://github.com/" target="_blank" rel="noopener" class="contact-link" id="contact-github-link">
+                        <div class="cl-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        </div>
+                        <div class="cl-info">
+                            <span class="cl-label">GitHub</span>
+                            <span class="cl-value">github.com/kumarabhinav</span>
+                        </div>
+                        <div class="cl-arrow">→</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <span class="footer-name">&copy; 2025 Kumar Abhinav</span>
+                <span class="footer-tagline">Building the future of autonomous security operations.</span>
+                <span class="footer-made">Designed with 🔒 &amp; ☕</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
