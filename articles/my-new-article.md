@@ -1,15 +1,28 @@
 ---
 id: my-new-article
-title: My New Article Title
-category: OWASP
+title: My New Security Article
+category: AI Security
 date: June 1, 2026
-readTime: 6 min read
-excerpt: A short summary of this article.
+readTime: 7 min read
+excerpt: A short two-line summary of the article.
 featured: false
 ---
 
-Write your article here.
+# My New Security Article
 
-## Heading
+Write your article in Markdown.
 
-Article content here.
+## Section Heading
+
+Use paragraphs, lists, tables, and code blocks.
+
+> [!TIP]
+> Use this format for green tip callouts.
+
+> [!WARNING]
+> Use this format for amber warning callouts.
+
+```python
+def example():
+    return "code blocks are supported"
+```
