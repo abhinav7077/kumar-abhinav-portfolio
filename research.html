@@ -108,37 +108,27 @@
             position: relative;
         }
 
-        .research-list-view,
-        .reader-view {
-            transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s ease;
+        /* === FIX: Simple display-based toggle (no opacity/visibility conflicts) === */
+        .research-list-view {
+            display: block;
         }
 
         .reader-view {
-            position: absolute;
-            inset: 0 auto auto 0;
-            width: 100%;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateX(36px);
-            pointer-events: none;
+            display: none;
         }
 
         body.reader-open .research-list-view {
-            position: absolute;
-            inset: 0 auto auto 0;
-            width: 100%;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateX(-36px);
-            pointer-events: none;
+            display: none !important;
         }
 
         body.reader-open .reader-view {
-            position: relative;
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(0);
-            pointer-events: auto;
+            display: block !important;
+            animation: readerIn 0.3s ease forwards;
+        }
+
+        @keyframes readerIn {
+            from { opacity: 0; transform: translateX(18px); }
+            to   { opacity: 1; transform: translateX(0); }
         }
 
         .featured-article,
@@ -190,6 +180,7 @@
             border: 1px dashed rgba(0, 212, 255, 0.24);
             box-shadow: inset 0 0 34px rgba(0, 212, 255, 0.08), 0 0 34px rgba(168, 85, 247, 0.08);
             animation: researchSpinReverse 22s linear infinite;
+            pointer-events: none;
         }
 
         .featured-content,
@@ -316,6 +307,7 @@
             font-size: 0.76rem;
             font-weight: 700;
             transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+            cursor: pointer;
         }
 
         .share-btn {
@@ -518,6 +510,19 @@
             transform: translate(-50%, 0);
         }
 
+        /* === FIX: Kill pointer-events on ALL background overlay elements === */
+        #particle-canvas,
+        #hex-grid-canvas,
+        .bg-gradient-orb,
+        .bg-noise,
+        .bg-grid,
+        .cursor-dot,
+        .cursor-ring {
+            pointer-events: none !important;
+        }
+
+        .article-card.is-hidden { display: none; }
+
         @keyframes researchSpin {
             to { transform: rotate(360deg); }
         }
@@ -646,7 +651,7 @@
                     <div class="research-command-strip">
                         <div>
                             <span>Article Library</span>
-                            <strong data-article-count>0 live article</strong>
+                            <strong data-article-count>0 live articles</strong>
                         </div>
                         <a href="articles/article-template.md" class="read-btn" download>Download Article Template</a>
                     </div>
@@ -678,7 +683,7 @@
 
     <script src="script.js"></script>
     <script>
-        /* === RESEARCH PAGE SELF-CONTAINED ARTICLE LOADER === */
+        /* === RESEARCH PAGE ARTICLE LOADER === */
         (() => {
             const fallbackMarkdown = `---
 id: owasp-llm
@@ -714,99 +719,18 @@ Attackers craft input that changes model behavior. Direct injection arrives from
 > [!WARNING]
 > Real-world case: a web page included hidden text telling a browser assistant to ignore its task and reveal data from the session context.
 
-Mitigation: label untrusted content, restrict tools, validate actions, and treat model output as untrusted until checked.
+Mitigation: label untrusted content, restrict tools, validate actions, and treat model output as untrusted until checked.`;
 
-## LLM02: Sensitive Information Disclosure
-
-Models can expose secrets through chat responses, logs, traces, embeddings, or overly broad retrieval.
-
-> [!WARNING]
-> Real-world case: an internal assistant answered a query with ticket data the user was not authorized to view because retrieval ignored ACLs.
-
-Mitigation: enforce authorization at retrieval time, redact secrets, and avoid placing sensitive data in prompts unless necessary.
-
-## LLM03: Supply Chain
-
-AI apps depend on models, packages, prompt templates, datasets, plugins, and external services. Any of them can be compromised.
-
-> [!WARNING]
-> Real-world case: a dependency update changed a helper library used by an AI workflow, silently altering request handling.
-
-Mitigation: pin dependencies, review model provenance, scan packages, and maintain an AI bill of materials.
-
-## LLM04: Data and Model Poisoning
-
-Attackers manipulate training, fine-tuning, or embedding data to bias outputs or create triggers.
-
-> [!WARNING]
-> Real-world case: a poisoned knowledge article made the assistant prefer an attacker-controlled domain in answers.
-
-Mitigation: validate dataset sources, monitor drift, separate trusted and untrusted corpora, and review high-impact documents.
-
-## LLM05: Improper Output Handling
-
-Model output becomes dangerous when it is rendered, executed, queried, or passed to tools without validation.
-
-> [!WARNING]
-> Real-world case: an assistant generated HTML that was inserted into an admin page without sanitization.
-
-Mitigation: escape output, validate against schemas, sandbox generated code, and never pass raw model output to privileged interpreters.
-
-## LLM06: Excessive Agency
-
-Agents become risky when they can take actions beyond what the user intended or what the application can safely supervise.
-
-> [!WARNING]
-> Real-world case: an autonomous workflow closed and reassigned tickets because it over-interpreted a summary instruction.
-
-Mitigation: use least privilege, per-action approvals, dry-run modes, and small bounded tool scopes.
-
-## LLM07: System Prompt Leakage
-
-System prompts often reveal architecture hints, policy logic, hidden tool names, or operational assumptions.
-
-> [!WARNING]
-> Real-world case: a jailbreak asked for the hidden instruction block and exposed internal routing rules.
-
-Mitigation: avoid secrets in prompts, assume policy text can leak, and keep security controls outside the prompt when possible.
-
-## LLM08: Vector and Embedding Weaknesses
-
-RAG systems can retrieve the wrong content, leak neighbor data, or rank malicious content highly.
-
-> [!WARNING]
-> Real-world case: a malicious document used repeated semantic phrases to dominate retrieval results.
-
-Mitigation: enforce ACLs in vector queries, add source reputation, detect duplicate stuffing, and cap per-source retrieval.
-
-## LLM09: Misinformation
-
-Incorrect output becomes a security issue when users rely on it for operational, legal, medical, financial, or safety decisions.
-
-> [!WARNING]
-> Real-world case: a support bot invented a security exception process that users followed.
-
-Mitigation: ground answers in cited sources, require confidence thresholds, and route high-impact answers to human review.
-
-## LLM10: Unbounded Consumption
-
-Attackers can drive token, compute, storage, or tool-use costs through oversized inputs, loops, or repeated requests.
-
-> [!WARNING]
-> Real-world case: a public endpoint accepted long recursive prompts and exhausted daily inference budget.
-
-Mitigation: set token budgets, rate limits, recursion caps, timeouts, and per-user cost controls.`;
-
-            const state = {
-                articles: []
-            };
+            const state = { articles: [] };
 
             document.addEventListener("DOMContentLoaded", initResearchPage);
 
             async function initResearchPage() {
                 const breadcrumb = document.querySelector("[data-portfolio-breadcrumb]");
                 if (breadcrumb) {
-                    breadcrumb.textContent = sessionStorage.getItem("fromPortfolio") === "true" ? "<- Back to Portfolio" : "<- Portfolio";
+                    breadcrumb.textContent = sessionStorage.getItem("fromPortfolio") === "true"
+                        ? "<- Back to Portfolio"
+                        : "<- Portfolio";
                 }
 
                 state.articles = await loadArticles();
@@ -816,7 +740,7 @@ Mitigation: set token budgets, rate limits, recursion caps, timeouts, and per-us
                 wireEvents();
 
                 const initialId = window.location.hash.replace("#", "");
-                if (initialId && state.articles.some((article) => article.id === initialId)) {
+                if (initialId && state.articles.some((a) => a.id === initialId)) {
                     openArticle(initialId, false);
                 }
             }
@@ -831,26 +755,30 @@ Mitigation: set token budgets, rate limits, recursion caps, timeouts, and per-us
                         if (!response.ok) continue;
                         const markdown = await response.text();
                         articles.push(parseArticle(markdown, file));
-                    } catch (error) {
-                        // Local file previews can block fetch. The fallback below keeps the page visible.
+                    } catch (e) {
+                        console.warn("Could not load article:", file, e);
                     }
                 }
 
-                return articles.length ? articles : [parseArticle(fallbackMarkdown, "owasp-top-10-llms.md")];
+                return articles.length
+                    ? articles
+                    : [parseArticle(fallbackMarkdown, "owasp-top-10-llms.md")];
             }
 
             async function discoverArticleFiles() {
+                /* 1 — Try GitHub API (only works on *.github.io) */
                 const githubFiles = await discoverGitHubFiles();
                 if (githubFiles.length) return githubFiles;
 
+                /* 2 — Try articles/index.json (works on Vercel + all static hosts) */
                 try {
                     const response = await fetch("articles/index.json", { cache: "no-store" });
                     if (response.ok) {
                         const index = await response.json();
                         return index.map((item) => item.file).filter(Boolean);
                     }
-                } catch (error) {
-                    // Fall back to bundled OWASP paper.
+                } catch (e) {
+                    console.warn("index.json not found, using fallback");
                 }
 
                 return ["owasp-top-10-llms.md"];
@@ -865,25 +793,29 @@ Mitigation: set token budgets, rate limits, recursion caps, timeouts, and per-us
                 const repo = firstPath || `${owner}.github.io`;
 
                 try {
-                    const response = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/articles`, { cache: "no-store" });
+                    const response = await fetch(
+                        `https://api.github.com/repos/${owner}/${repo}/contents/articles`,
+                        { cache: "no-store" }
+                    );
                     if (!response.ok) return [];
                     const files = await response.json();
                     return files
-                        .filter((file) => file.type === "file" && file.name.endsWith(".md") && file.name !== "article-template.md")
-                        .map((file) => file.name)
+                        .filter((f) => f.type === "file" && f.name.endsWith(".md") && f.name !== "article-template.md")
+                        .map((f) => f.name)
                         .sort();
-                } catch (error) {
+                } catch (e) {
                     return [];
                 }
             }
 
-            function renderFeatured() {
-                const featured = document.querySelector("[data-featured-article]");
-                if (!featured) return;
+            /* ── Render helpers ──────────────────────────────────── */
 
-                const article = state.articles.find((item) => item.featured) || state.articles[0];
-                featured.classList.remove("is-loading");
-                featured.innerHTML = `
+            function renderFeatured() {
+                const el = document.querySelector("[data-featured-article]");
+                if (!el) return;
+                const article = state.articles.find((a) => a.featured) || state.articles[0];
+                el.classList.remove("is-loading");
+                el.innerHTML = `
                     <div class="featured-content">
                         <span class="featured-kicker">Featured / ${escapeHtml(article.category)} / ${escapeHtml(article.readTime)}</span>
                         <h2>${escapeHtml(article.title)}</h2>
@@ -902,85 +834,83 @@ Mitigation: set token budgets, rate limits, recursion caps, timeouts, and per-us
             }
 
             function renderFilters() {
-                const filterBar = document.querySelector("[data-filter-bar]");
-                if (!filterBar) return;
-
-                const categories = ["All", ...new Set(state.articles.map((article) => article.category || "Research"))];
-                filterBar.innerHTML = categories.map((category) => (
-                    `<button class="filter-btn${category === "All" ? " active" : ""}" data-filter="${escapeAttr(category)}">${escapeHtml(category)}</button>`
-                )).join("");
+                const bar = document.querySelector("[data-filter-bar]");
+                if (!bar) return;
+                const cats = ["All", ...new Set(state.articles.map((a) => a.category || "Research"))];
+                bar.innerHTML = cats
+                    .map((c) => `<button class="filter-btn${c === "All" ? " active" : ""}" data-filter="${escapeAttr(c)}">${escapeHtml(c)}</button>`)
+                    .join("");
             }
 
             function renderCards() {
                 const grid = document.querySelector("[data-article-grid]");
-                const countLabel = document.querySelector("[data-article-count]");
+                const count = document.querySelector("[data-article-count]");
                 if (!grid) return;
 
                 grid.classList.toggle("single-article", state.articles.length === 1);
-                grid.innerHTML = state.articles.map((article) => `
-                    <article class="article-card" data-article-card="${escapeAttr(article.id)}" data-category="${escapeAttr(article.category)}">
-                        <span class="article-category">${escapeHtml(article.category)}</span>
-                        <h3>${escapeHtml(article.title)}</h3>
-                        <p>${escapeHtml(article.excerpt)}</p>
+                grid.innerHTML = state.articles.map((a) => `
+                    <article class="article-card" data-article-card="${escapeAttr(a.id)}" data-category="${escapeAttr(a.category)}">
+                        <span class="article-category">${escapeHtml(a.category)}</span>
+                        <h3>${escapeHtml(a.title)}</h3>
+                        <p>${escapeHtml(a.excerpt)}</p>
                         <div class="article-card-footer">
                             <div class="article-author">
-                                <span class="avatar">${escapeHtml(article.authorInitials)}</span>
-                                <span>${escapeHtml(article.date)}</span>
-                                <span>${escapeHtml(article.readTime)}</span>
+                                <span class="avatar">${escapeHtml(a.authorInitials)}</span>
+                                <span>${escapeHtml(a.date)}</span>
+                                <span>${escapeHtml(a.readTime)}</span>
                             </div>
                             <div class="article-card-actions">
-                                <button class="share-btn" data-share-article="${escapeAttr(article.id)}">Share</button>
-                                <button class="read-btn" data-open-article="${escapeAttr(article.id)}">Read Article -&gt;</button>
+                                <button class="share-btn" data-share-article="${escapeAttr(a.id)}">Share</button>
+                                <button class="read-btn" data-open-article="${escapeAttr(a.id)}">Read Article -&gt;</button>
                             </div>
                         </div>
                     </article>
                 `).join("");
 
-                if (countLabel) {
-                    countLabel.textContent = `${state.articles.length} live article${state.articles.length === 1 ? "" : "s"}`;
+                if (count) {
+                    count.textContent = `${state.articles.length} live article${state.articles.length === 1 ? "" : "s"}`;
                 }
             }
 
+            /* ── FIX: Direct listeners instead of event delegation ── */
             function wireEvents() {
-                document.addEventListener("click", (event) => {
-                    const openButton = event.target.closest("[data-open-article]");
-                    if (openButton) {
-                        openArticle(openButton.dataset.openArticle);
-                        return;
-                    }
-
-                    const shareButton = event.target.closest("[data-share-article]");
-                    if (shareButton) {
-                        const article = state.articles.find((item) => item.id === shareButton.dataset.shareArticle);
-                        if (article) shareArticle(article);
-                        return;
-                    }
-
-                    const filterButton = event.target.closest("[data-filter]");
-                    if (filterButton) {
-                        setFilter(filterButton.dataset.filter);
-                    }
+                /* Open article buttons (re-runs after each renderCards / renderFeatured) */
+                document.querySelectorAll("[data-open-article]").forEach((btn) => {
+                    btn.addEventListener("click", () => openArticle(btn.dataset.openArticle));
                 });
 
-                document.querySelectorAll("[data-reader-back]").forEach((button) => {
-                    button.addEventListener("click", closeArticle);
+                /* Share buttons on cards + featured */
+                document.querySelectorAll("[data-share-article]").forEach((btn) => {
+                    btn.addEventListener("click", () => {
+                        const article = state.articles.find((a) => a.id === btn.dataset.shareArticle);
+                        if (article) shareArticle(article);
+                    });
+                });
+
+                /* Filter buttons */
+                document.querySelectorAll("[data-filter]").forEach((btn) => {
+                    btn.addEventListener("click", () => setFilter(btn.dataset.filter));
+                });
+
+                /* Back buttons */
+                document.querySelectorAll("[data-reader-back]").forEach((btn) => {
+                    btn.addEventListener("click", closeArticle);
                 });
             }
 
             function setFilter(filter) {
-                document.querySelectorAll("[data-filter]").forEach((button) => {
-                    button.classList.toggle("active", button.dataset.filter === filter);
+                document.querySelectorAll("[data-filter]").forEach((btn) => {
+                    btn.classList.toggle("active", btn.dataset.filter === filter);
                 });
-
                 document.querySelectorAll("[data-article-card]").forEach((card) => {
                     card.classList.toggle("is-hidden", filter !== "All" && card.dataset.category !== filter);
                 });
             }
 
             function openArticle(id, updateHash = true) {
-                const article = state.articles.find((item) => item.id === id);
+                const article = state.articles.find((a) => a.id === id);
                 const readerHeader = document.querySelector("[data-reader-header]");
-                const readerBody = document.querySelector("[data-reader-body]");
+                const readerBody   = document.querySelector("[data-reader-body]");
                 if (!article || !readerHeader || !readerBody) return;
 
                 readerHeader.innerHTML = `
@@ -993,8 +923,20 @@ Mitigation: set token budgets, rate limits, recursion caps, timeouts, and per-us
                     </div>
                 `;
                 readerBody.innerHTML = article.html;
+
                 renderShareToolbar(article, document.querySelector("[data-share-toolbar]"));
                 renderShareToolbar(article, document.querySelector("[data-share-toolbar-bottom]"));
+
+                /* FIX: re-wire share buttons injected into the reader */
+                document.querySelectorAll("[data-share-article]").forEach((btn) => {
+                    btn.addEventListener("click", () => shareArticle(article));
+                });
+
+                /* FIX: re-wire back buttons (they're static HTML but wire again to be safe) */
+                document.querySelectorAll("[data-reader-back]").forEach((btn) => {
+                    btn.addEventListener("click", closeArticle);
+                });
+
                 document.body.classList.add("reader-open");
                 window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? "auto" : "smooth" });
                 if (updateHash) history.replaceState(null, "", `#${id}`);
@@ -1008,7 +950,7 @@ Mitigation: set token budgets, rate limits, recursion caps, timeouts, and per-us
 
             function renderShareToolbar(article, container) {
                 if (!container) return;
-                const url = articleUrl(article);
+                const url  = articleUrl(article);
                 const text = encodeURIComponent(`${article.title} ${url}`);
                 container.innerHTML = `
                     <button class="share-btn" data-share-article="${escapeAttr(article.id)}">Share</button>
@@ -1021,12 +963,8 @@ Mitigation: set token budgets, rate limits, recursion caps, timeouts, and per-us
             async function shareArticle(article) {
                 const url = articleUrl(article);
                 if (navigator.share) {
-                    try {
-                        await navigator.share({ title: article.title, text: article.excerpt, url });
-                        return;
-                    } catch (error) {
-                        // Fall back to copy link.
-                    }
+                    try { await navigator.share({ title: article.title, text: article.excerpt, url }); return; }
+                    catch (e) { /* fall through */ }
                 }
                 await copyText(url);
                 showToast("Article link copied");
@@ -1037,16 +975,14 @@ Mitigation: set token budgets, rate limits, recursion caps, timeouts, and per-us
                     await navigator.clipboard.writeText(text);
                     return;
                 }
-
-                const textarea = document.createElement("textarea");
-                textarea.value = text;
-                textarea.setAttribute("readonly", "");
-                textarea.style.position = "fixed";
-                textarea.style.opacity = "0";
-                document.body.appendChild(textarea);
-                textarea.select();
+                const ta = document.createElement("textarea");
+                ta.value = text;
+                ta.setAttribute("readonly", "");
+                ta.style.cssText = "position:fixed;opacity:0";
+                document.body.appendChild(ta);
+                ta.select();
                 document.execCommand("copy");
-                textarea.remove();
+                ta.remove();
             }
 
             function showToast(message) {
@@ -1061,61 +997,51 @@ Mitigation: set token budgets, rate limits, recursion caps, timeouts, and per-us
                 window.setTimeout(() => toast.classList.remove("visible"), 1800);
             }
 
-            function parseArticle(markdown, file) {
-                const parsed = parseFrontMatter(markdown);
-                const body = parsed.body;
-                const meta = parsed.frontMatter;
-                const title = meta.title || titleCase(file.replace(/\.md$/, "").replace(/[-_]+/g, " "));
+            /* ── Article parsing ──────────────────────────────────── */
 
+            function parseArticle(markdown, file) {
+                const { frontMatter: meta, body } = parseFrontMatter(markdown);
+                const title = meta.title || titleCase(file.replace(/\.md$/, "").replace(/[-_]+/g, " "));
                 return {
-                    id: meta.id || slugify(title),
+                    id:             meta.id || slugify(title),
                     title,
-                    category: meta.category || "Research",
-                    date: meta.date || "",
-                    readTime: meta.readTime || meta.readtime || estimateReadTime(body),
-                    excerpt: meta.excerpt || body.split(/\n\n/).find(Boolean).replace(/[#>*_`|-]/g, "").slice(0, 150),
-                    featured: String(meta.featured || "").toLowerCase() === "true",
-                    author: meta.author || "Kumar Abhinav",
+                    category:       meta.category || "Research",
+                    date:           meta.date || "",
+                    readTime:       meta.readTime || meta.readtime || estimateReadTime(body),
+                    excerpt:        meta.excerpt || body.split(/\n\n/).find(Boolean).replace(/[#>*_`|-]/g, "").slice(0, 150),
+                    featured:       String(meta.featured || "").toLowerCase() === "true",
+                    author:         meta.author || "Kumar Abhinav",
                     authorInitials: meta.authorInitials || "KA",
-                    html: markdownToHtml(body)
+                    html:           markdownToHtml(body),
                 };
             }
 
             function parseFrontMatter(markdown) {
                 const match = markdown.match(/^---\s*\r?\n([\s\S]*?)\r?\n---\s*\r?\n?/);
                 if (!match) return { frontMatter: {}, body: markdown.trim() };
-
                 const frontMatter = {};
                 match[1].split(/\r?\n/).forEach((line) => {
-                    const separator = line.indexOf(":");
-                    if (separator === -1) return;
-                    const key = line.slice(0, separator).trim();
-                    const value = line.slice(separator + 1).trim().replace(/^['"]|['"]$/g, "");
+                    const sep = line.indexOf(":");
+                    if (sep === -1) return;
+                    const key   = line.slice(0, sep).trim();
+                    const value = line.slice(sep + 1).trim().replace(/^['"]|['"]$/g, "");
                     frontMatter[key] = value;
                 });
-
                 return { frontMatter, body: markdown.slice(match[0].length).trim() };
             }
 
             function markdownToHtml(markdown) {
                 const lines = markdown.replace(/\r\n/g, "\n").split("\n");
-                const html = [];
+                const html  = [];
                 let i = 0;
 
                 while (i < lines.length) {
                     const line = lines[i];
-                    if (!line.trim()) {
-                        i++;
-                        continue;
-                    }
+                    if (!line.trim()) { i++; continue; }
 
                     if (line.startsWith("```")) {
-                        const code = [];
-                        i++;
-                        while (i < lines.length && !lines[i].startsWith("```")) {
-                            code.push(lines[i]);
-                            i++;
-                        }
+                        const code = []; i++;
+                        while (i < lines.length && !lines[i].startsWith("```")) { code.push(lines[i]); i++; }
                         i++;
                         html.push(`<pre><code>${escapeHtml(code.join("\n"))}</code></pre>`);
                         continue;
@@ -1125,55 +1051,48 @@ Mitigation: set token budgets, rate limits, recursion caps, timeouts, and per-us
                     if (heading) {
                         const level = heading[1].length;
                         html.push(`<h${level}>${inlineMarkdown(heading[2])}</h${level}>`);
-                        i++;
-                        continue;
+                        i++; continue;
                     }
 
                     if (line.startsWith("|") && lines[i + 1] && lines[i + 1].match(/^\|?\s*:?-{3,}/)) {
                         const tableLines = [];
-                        while (i < lines.length && lines[i].startsWith("|")) {
-                            tableLines.push(lines[i]);
-                            i++;
-                        }
+                        while (i < lines.length && lines[i].startsWith("|")) { tableLines.push(lines[i]); i++; }
                         html.push(tableToHtml(tableLines));
                         continue;
                     }
 
                     if (line.startsWith(">")) {
                         const quote = [];
-                        while (i < lines.length && lines[i].startsWith(">")) {
-                            quote.push(lines[i].replace(/^>\s?/, ""));
-                            i++;
-                        }
+                        while (i < lines.length && lines[i].startsWith(">")) { quote.push(lines[i].replace(/^>\s?/, "")); i++; }
                         html.push(quoteToHtml(quote));
                         continue;
                     }
 
                     if (line.match(/^[-*]\s+/)) {
                         const items = [];
-                        while (i < lines.length && lines[i].match(/^[-*]\s+/)) {
-                            items.push(lines[i].replace(/^[-*]\s+/, ""));
-                            i++;
-                        }
-                        html.push(`<ul>${items.map((item) => `<li>${inlineMarkdown(item)}</li>`).join("")}</ul>`);
+                        while (i < lines.length && lines[i].match(/^[-*]\s+/)) { items.push(lines[i].replace(/^[-*]\s+/, "")); i++; }
+                        html.push(`<ul>${items.map((it) => `<li>${inlineMarkdown(it)}</li>`).join("")}</ul>`);
                         continue;
                     }
 
                     if (line.match(/^\d+\.\s+/)) {
                         const items = [];
-                        while (i < lines.length && lines[i].match(/^\d+\.\s+/)) {
-                            items.push(lines[i].replace(/^\d+\.\s+/, ""));
-                            i++;
-                        }
-                        html.push(`<ol>${items.map((item) => `<li>${inlineMarkdown(item)}</li>`).join("")}</ol>`);
+                        while (i < lines.length && lines[i].match(/^\d+\.\s+/)) { items.push(lines[i].replace(/^\d+\.\s+/, "")); i++; }
+                        html.push(`<ol>${items.map((it) => `<li>${inlineMarkdown(it)}</li>`).join("")}</ol>`);
                         continue;
                     }
 
                     const paragraph = [];
-                    while (i < lines.length && lines[i].trim() && !lines[i].match(/^(#{2,4})\s+/) && !lines[i].startsWith("```") && !lines[i].startsWith(">") && !lines[i].match(/^[-*]\s+/) && !lines[i].match(/^\d+\.\s+/) && !(lines[i].startsWith("|") && lines[i + 1] && lines[i + 1].match(/^\|?\s*:?-{3,}/))) {
-                        paragraph.push(lines[i]);
-                        i++;
-                    }
+                    while (
+                        i < lines.length &&
+                        lines[i].trim() &&
+                        !lines[i].match(/^(#{2,4})\s+/) &&
+                        !lines[i].startsWith("```") &&
+                        !lines[i].startsWith(">") &&
+                        !lines[i].match(/^[-*]\s+/) &&
+                        !lines[i].match(/^\d+\.\s+/) &&
+                        !(lines[i].startsWith("|") && lines[i + 1] && lines[i + 1].match(/^\|?\s*:?-{3,}/))
+                    ) { paragraph.push(lines[i]); i++; }
                     html.push(`<p>${inlineMarkdown(paragraph.join(" "))}</p>`);
                 }
 
@@ -1181,26 +1100,21 @@ Mitigation: set token budgets, rate limits, recursion caps, timeouts, and per-us
             }
 
             function tableToHtml(lines) {
-                const rows = lines
-                    .filter((line, index) => index !== 1)
-                    .map((line) => line.replace(/^\||\|$/g, "").split("|").map((cell) => cell.trim()));
+                const rows   = lines
+                    .filter((_, idx) => idx !== 1)
+                    .map((l) => l.replace(/^\||\|$/g, "").split("|").map((c) => c.trim()));
                 const header = rows.shift() || [];
                 return `
                     <table class="risk-table">
-                        <thead><tr>${header.map((cell) => `<th>${inlineMarkdown(cell)}</th>`).join("")}</tr></thead>
-                        <tbody>${rows.map((row) => `<tr>${row.map((cell) => `<td>${inlineMarkdown(cell)}</td>`).join("")}</tr>`).join("")}</tbody>
-                    </table>
-                `;
+                        <thead><tr>${header.map((c) => `<th>${inlineMarkdown(c)}</th>`).join("")}</tr></thead>
+                        <tbody>${rows.map((r) => `<tr>${r.map((c) => `<td>${inlineMarkdown(c)}</td>`).join("")}</tr>`).join("")}</tbody>
+                    </table>`;
             }
 
             function quoteToHtml(lines) {
                 let type = "";
-                if (lines[0] && lines[0].match(/^\[!TIP\]/i)) {
-                    type = " tip";
-                    lines.shift();
-                } else if (lines[0] && lines[0].match(/^\[!WARNING\]/i)) {
-                    lines.shift();
-                }
+                if (lines[0] && lines[0].match(/^\[!TIP\]/i))     { type = " tip"; lines.shift(); }
+                else if (lines[0] && lines[0].match(/^\[!WARNING\]/i)) { lines.shift(); }
                 return `<div class="callout${type}">${inlineMarkdown(lines.join(" "))}</div>`;
             }
 
@@ -1211,13 +1125,14 @@ Mitigation: set token budgets, rate limits, recursion caps, timeouts, and per-us
                     .replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
             }
 
+            /* ── Utility ──────────────────────────────────────────── */
+
             function articleUrl(article) {
                 return `${window.location.href.split("#")[0]}#${article.id}`;
             }
 
             function estimateReadTime(text) {
-                const words = text.trim().split(/\s+/).filter(Boolean).length;
-                return `${Math.max(1, Math.round(words / 180))} min read`;
+                return `${Math.max(1, Math.round(text.trim().split(/\s+/).filter(Boolean).length / 180))} min read`;
             }
 
             function prefersReducedMotion() {
@@ -1229,23 +1144,17 @@ Mitigation: set token budgets, rate limits, recursion caps, timeouts, and per-us
             }
 
             function titleCase(text) {
-                return text.replace(/\b\w/g, (letter) => letter.toUpperCase());
+                return text.replace(/\b\w/g, (l) => l.toUpperCase());
             }
 
             function escapeHtml(value = "") {
                 return String(value)
-                    .replace(/&/g, "&amp;")
-                    .replace(/</g, "&lt;")
-                    .replace(/>/g, "&gt;")
-                    .replace(/"/g, "&quot;")
-                    .replace(/'/g, "&#039;");
+                    .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
             }
 
-            function escapeAttr(value = "") {
-                return escapeHtml(value);
-            }
+            function escapeAttr(value = "") { return escapeHtml(value); }
         })();
     </script>
 </body>
 </html>
-
