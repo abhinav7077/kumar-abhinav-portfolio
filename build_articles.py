@@ -49,6 +49,8 @@ def inline_markdown(text):
     out = esc(text)
     out = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", out)
     out = re.sub(r"`([^`]+)`", r"<code>\1</code>", out)
+    out = re.sub(r"!\[([^\]]*)\]\(([^)]+)\)",
+                 r'<img src="\2" alt="\1" loading="lazy" class="article-figure">', out)
     out = re.sub(r"\[([^\]]+)\]\((https?://[^)]+)\)",
                  r'<a href="\2" target="_blank" rel="noopener">\1</a>', out)
     return out
@@ -157,6 +159,7 @@ PAGE = """<!DOCTYPE html>
     <meta name="author" content="{author}">
     <meta name="theme-color" content="#030712">
     <link rel="canonical" href="{url}">
+    <link rel="icon" href="../favicon.ico" sizes="32x32">
     <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 
     <meta property="og:type" content="article">

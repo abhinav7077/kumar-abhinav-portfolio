@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inside Swaraj Hansa: Designing an Agentic, Multi-Tenant SIEM You Can Actually Trust | Kumar Abhinav</title>
+    <meta name="description" content="How I architected an LLM-assisted SIEM for a multi-client MSSP — where the model never gets to decide on its own, every tenant is isolated at four layers, and no log data ever leaves the environment.">
+    <meta name="author" content="Kumar Abhinav">
+    <meta name="theme-color" content="#030712">
+    <link rel="canonical" href="https://kumar-abhinav17.vercel.app/research/swaraj-hansa-agentic-siem.html">
+    <link rel="icon" href="../favicon.ico" sizes="32x32">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Kumar Abhinav">
+    <meta property="og:title" content="Inside Swaraj Hansa: Designing an Agentic, Multi-Tenant SIEM You Can Actually Trust">
+    <meta property="og:description" content="How I architected an LLM-assisted SIEM for a multi-client MSSP — where the model never gets to decide on its own, every tenant is isolated at four layers, and no log data ever leaves the environment.">
+    <meta property="og:url" content="https://kumar-abhinav17.vercel.app/research/swaraj-hansa-agentic-siem.html">
+    <meta property="og:image" content="https://kumar-abhinav17.vercel.app/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="article:author" content="Kumar Abhinav">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Inside Swaraj Hansa: Designing an Agentic, Multi-Tenant SIEM You Can Actually Trust",
+      "description": "How I architected an LLM-assisted SIEM for a multi-client MSSP — where the model never gets to decide on its own, every tenant is isolated at four layers, and no log data ever leaves the environment.",
+      "author": {
+        "@type": "Person",
+        "name": "Kumar Abhinav",
+        "url": "https://kumar-abhinav17.vercel.app/"
+      },
+      "mainEntityOfPage": "https://kumar-abhinav17.vercel.app/research/swaraj-hansa-agentic-siem.html",
+      "image": "https://kumar-abhinav17.vercel.app/og-image.jpg",
+      "articleSection": "Engineering"
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../research.css">
+</head>
+<body data-page="research" class="reader-open article-page">
+    <a href="#main-content" class="skip-link">Skip to content</a>
+
+    <div class="bg-effects" aria-hidden="true">
+        <div class="bg-gradient-orb orb-1"></div>
+        <div class="bg-gradient-orb orb-2"></div>
+        <div class="bg-noise"></div>
+    </div>
+
+    <nav class="navbar scrolled" id="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo" aria-label="Kumar Abhinav portfolio home">
+                <span class="logo-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        <path d="M9 12l2 2 4-5"/>
+                    </svg>
+                </span>
+                <span class="logo-text">K<span class="logo-dot">.</span>Abhinav</span>
+            </a>
+            <div class="nav-links" id="nav-links">
+                <a href="../index.html#about" class="nav-link">About</a>
+                <a href="../index.html#projects" class="nav-link">Projects</a>
+                <a href="../index.html#experience" class="nav-link">Experience</a>
+                <a href="../research.html" class="nav-link active-link">Research</a>
+                <a href="../index.html#contact" class="nav-link nav-cta">Let's Talk</a>
+            </div>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+                <span class="toggle-line"></span>
+                <span class="toggle-line"></span>
+                <span class="toggle-line"></span>
+            </button>
+        </div>
+    </nav>
+
+    <main id="main-content">
+        <section class="research-page-shell">
+            <div class="container">
+                <article class="reader-view">
+                    <div class="reader-shell">
+                        <div class="reader-top">
+                            <a class="back-btn" href="../research.html">&lt;- All Research</a>
+                            <div class="share-toolbar"><a class="share-btn" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fkumar-abhinav17.vercel.app%2Fresearch%2Fswaraj-hansa-agentic-siem.html" target="_blank" rel="noopener">LinkedIn</a><a class="share-btn" href="https://twitter.com/intent/tweet?text=Inside%20Swaraj%20Hansa%3A%20Designing%20an%20Agentic%2C%20Multi-Tenant%20SIEM%20You%20Can%20Actually%20Trust%20https%3A%2F%2Fkumar-abhinav17.vercel.app%2Fresearch%2Fswaraj-hansa-agentic-siem.html" target="_blank" rel="noopener">X</a><a class="share-btn" href="https://wa.me/?text=Inside%20Swaraj%20Hansa%3A%20Designing%20an%20Agentic%2C%20Multi-Tenant%20SIEM%20You%20Can%20Actually%20Trust%20https%3A%2F%2Fkumar-abhinav17.vercel.app%2Fresearch%2Fswaraj-hansa-agentic-siem.html" target="_blank" rel="noopener">WhatsApp</a></div>
+                        </div>
+                        <header class="reader-header">
+                            <span class="article-category">Engineering</span>
+                            <h1>Inside Swaraj Hansa: Designing an Agentic, Multi-Tenant SIEM You Can Actually Trust</h1>
+                            <div class="article-meta">
+                                <span>Kumar Abhinav</span>
+                                <span>October 2026</span>
+                                <span>9 min read</span>
+                            </div>
+                        </header>
+                        <div class="reader-body">
+<p>Most &quot;AI SIEM&quot; demos put a language model in the critical path and hope for the best. In a managed security service, where one platform watches many clients at once, that is not good enough. The question is not &quot;can an LLM summarise an alert&quot; — it clearly can. The question is: <strong>can you put one into a production detection pipeline without letting it leak data across tenants, invent verdicts, or be talked out of its job by a crafted log line?</strong></p>
+<p>Swaraj Hansa is ESDS&#x27;s answer to that, and I architected and led the build of it. This is how the system is put together and, more importantly, where the model is deliberately *not* trusted.</p>
+<p><img src="/assets/swaraj-hansa-architecture.svg" alt="Swaraj Hansa architecture: Wazuh agents over mTLS into Logstash and Kafka, a normaliser, deterministic risk scoring that gates a local LLM triage layer, then PostgreSQL and OpenSearch feeding a FastAPI and React analyst console, over a four-layer tenant isolation band." loading="lazy" class="article-figure"></p>
+<h2>The pipeline</h2>
+<p>Telemetry flows through a deliberately boring, auditable path:</p>
+<ul><li><strong>Collection.</strong> Wazuh agents ship endpoint and log data to a central Logstash over <strong>mutual TLS</strong> — the client&#x27;s identity is its certificate, not a header it can forge.</li><li><strong>Streaming.</strong> Kafka gives the system a durable buffer, so a burst of events or a slow downstream never drops data on the floor.</li><li><strong>Normalisation.</strong> Events are coerced into a common schema and enriched with threat intelligence (AbuseIPDB, VirusTotal) before anything looks at them.</li><li><strong>Dual store.</strong> Incidents and verdicts live in <strong>PostgreSQL 16</strong>; raw, searchable events live in <strong>OpenSearch</strong>, with one index per tenant.</li><li><strong>Console.</strong> Analysts work in a FastAPI + React application with a tenant-scoped chat assistant.</li></ul>
+<p>Nothing above is novel on its own. The design work is in the two places the AI touches: the triage path and the chat assistant.</p>
+<h2>The model does not decide — a risk score does</h2>
+<p>A language model is expensive, slow, and non-deterministic. You do not want it running on every alert, and you do not want its opinion to be the final word. So before any model is invoked, a <strong>deterministic risk score</strong> runs: severity, threat-intel reputation, and MITRE ATT&amp;CK weighting combine into a number. Only high-risk alerts are handed to the LLM at all.</p>
+<p>When the model does run, its authority is boxed in:</p>
+<ul><li>It receives untrusted log data inside explicitly labelled, untrusted prompt blocks — sanitised first (control characters stripped, known injection phrases neutralised, fields truncated to 2,000 characters).</li><li>It must answer in a <strong>fixed JSON verdict schema</strong>. Anything malformed, uncertain, or out of range fails safe to <code>NEEDS_REVIEW</code> rather than being guessed.</li><li>Every verdict lands in an <strong>analyst review queue</strong> that records the human decision. The model proposes; a person disposes.</li></ul>
+<div class="callout tip">This is the single most important design choice in the system: the LLM is a fast first-pass analyst with a deterministic gate in front of it and a human behind it — never an autonomous authority. It maps directly onto the OWASP Top 10 for LLM Applications risks of *prompt injection*, *improper output handling*, and *excessive agency*.</div>
+<h2>The chat assistant is scoped, not clever</h2>
+<p>The analyst-facing assistant is where &quot;excessive agency&quot; usually sneaks in. Here it is constrained on every side:</p>
+<ul><li>Its tools are <strong>tenant-scoped and enforced server-side</strong> via the Model Context Protocol — the model cannot reach another client&#x27;s data even if it is asked to.</li><li>A <strong>topic filter</strong> runs before the model does, so off-scope requests never reach it.</li><li>Answers are grounded in tool results, it does not disclose detection rules, and it <strong>cannot override a stored verdict</strong>.</li></ul>
+<h2>Four layers of tenant isolation</h2>
+<p>In a multi-client MSSP, a cross-tenant leak is the worst thing that can happen. So isolation is not one control, it is four, each independent of the others:</p>
+<ol><li><strong>Ingress identity</strong> from mTLS certificates — unknown clients are dead-lettered, not guessed at.</li><li><strong>Per-tenant OpenSearch indices</strong> — separate data stores, not a shared index with a filter.</li><li><strong>PostgreSQL row-level security (RLS)</strong> — the database itself refuses cross-tenant reads.</li><li><strong>Application-level scoping</strong>, with any cross-tenant action dual-logged.</li></ol>
+<p>And because inference runs <strong>locally via Ollama</strong>, no prompt data — no logs, no customer telemetry — ever leaves the environment to reach a third-party API.</p>
+<h2>Did it actually work?</h2>
+<p>A design is a hypothesis until you test it. End to end, the pipeline took <strong>105 raw alerts down to ~18 deduplicated incidents</strong>, and routed <strong>7 out of 7 seeded attack scenarios to the correct queue</strong>. A load-test harness exercises it from 100 up to 5,000 EPS against a 100–1,000 EPS per-tenant design target, and tiered retention (Kafka 24h–14d, OpenSearch 30–180 days, incidents ~1 year) keeps storage honest.</p>
+<h2>What I would tell anyone building one</h2>
+<p>If you take one thing from this: <strong>decide what your model is allowed to be wrong about before you write a line of prompt.</strong> In security, the answer is usually &quot;very little.&quot; Put a deterministic gate in front of it, a human behind it, a strict schema around it, and hard tenant boundaries underneath it — then the LLM becomes a genuine force multiplier instead of a liability you have to apologise for later.</p>
+<p>*Swaraj Hansa is a managed SIEM product at ESDS. You can read the official product overview <a href="https://www.esds.co.in/security-information-and-event-management" target="_blank" rel="noopener">on the ESDS site</a>.*</p>
+                        </div>
+                        <div class="reader-bottom-actions">
+                            <a class="back-btn" href="../research.html">&lt;- All Research</a>
+                            <div class="share-toolbar"><a class="share-btn" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fkumar-abhinav17.vercel.app%2Fresearch%2Fswaraj-hansa-agentic-siem.html" target="_blank" rel="noopener">LinkedIn</a><a class="share-btn" href="https://twitter.com/intent/tweet?text=Inside%20Swaraj%20Hansa%3A%20Designing%20an%20Agentic%2C%20Multi-Tenant%20SIEM%20You%20Can%20Actually%20Trust%20https%3A%2F%2Fkumar-abhinav17.vercel.app%2Fresearch%2Fswaraj-hansa-agentic-siem.html" target="_blank" rel="noopener">X</a><a class="share-btn" href="https://wa.me/?text=Inside%20Swaraj%20Hansa%3A%20Designing%20an%20Agentic%2C%20Multi-Tenant%20SIEM%20You%20Can%20Actually%20Trust%20https%3A%2F%2Fkumar-abhinav17.vercel.app%2Fresearch%2Fswaraj-hansa-agentic-siem.html" target="_blank" rel="noopener">WhatsApp</a></div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <script src="../script.js"></script>
+</body>
+</html>
