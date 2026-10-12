@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OWASP Top 10 for LLMs - A Practitioner&#x27;s Breakdown | Kumar Abhinav</title>
+    <meta name="description" content="The 2025 LLM risk list translated into examples, severity thinking, and mitigation choices for builders.">
+    <meta name="author" content="Kumar Abhinav">
+    <meta name="theme-color" content="#030712">
+    <link rel="canonical" href="https://kumar-abhinav17.vercel.app/research/owasp-top-10-llms.html">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Kumar Abhinav">
+    <meta property="og:title" content="OWASP Top 10 for LLMs - A Practitioner&#x27;s Breakdown">
+    <meta property="og:description" content="The 2025 LLM risk list translated into examples, severity thinking, and mitigation choices for builders.">
+    <meta property="og:url" content="https://kumar-abhinav17.vercel.app/research/owasp-top-10-llms.html">
+    <meta property="og:image" content="https://kumar-abhinav17.vercel.app/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="article:author" content="Kumar Abhinav">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "OWASP Top 10 for LLMs - A Practitioner's Breakdown",
+      "description": "The 2025 LLM risk list translated into examples, severity thinking, and mitigation choices for builders.",
+      "author": {
+        "@type": "Person",
+        "name": "Kumar Abhinav",
+        "url": "https://kumar-abhinav17.vercel.app/"
+      },
+      "mainEntityOfPage": "https://kumar-abhinav17.vercel.app/research/owasp-top-10-llms.html",
+      "image": "https://kumar-abhinav17.vercel.app/og-image.jpg",
+      "articleSection": "OWASP"
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../research.css">
+</head>
+<body data-page="research" class="reader-open article-page">
+    <a href="#main-content" class="skip-link">Skip to content</a>
+
+    <div class="bg-effects" aria-hidden="true">
+        <div class="bg-gradient-orb orb-1"></div>
+        <div class="bg-gradient-orb orb-2"></div>
+        <div class="bg-noise"></div>
+    </div>
+
+    <nav class="navbar scrolled" id="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo" aria-label="Kumar Abhinav portfolio home">
+                <span class="logo-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        <path d="M9 12l2 2 4-5"/>
+                    </svg>
+                </span>
+                <span class="logo-text">K<span class="logo-dot">.</span>Abhinav</span>
+            </a>
+            <div class="nav-links" id="nav-links">
+                <a href="../index.html#about" class="nav-link">About</a>
+                <a href="../index.html#projects" class="nav-link">Projects</a>
+                <a href="../index.html#experience" class="nav-link">Experience</a>
+                <a href="../research.html" class="nav-link active-link">Research</a>
+                <a href="../index.html#contact" class="nav-link nav-cta">Let's Talk</a>
+            </div>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+                <span class="toggle-line"></span>
+                <span class="toggle-line"></span>
+                <span class="toggle-line"></span>
+            </button>
+        </div>
+    </nav>
+
+    <main id="main-content">
+        <section class="research-page-shell">
+            <div class="container">
+                <article class="reader-view">
+                    <div class="reader-shell">
+                        <div class="reader-top">
+                            <a class="back-btn" href="../research.html">&lt;- All Research</a>
+                            <div class="share-toolbar"><a class="share-btn" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fkumar-abhinav17.vercel.app%2Fresearch%2Fowasp-top-10-llms.html" target="_blank" rel="noopener">LinkedIn</a><a class="share-btn" href="https://twitter.com/intent/tweet?text=OWASP%20Top%2010%20for%20LLMs%20-%20A%20Practitioner%27s%20Breakdown%20https%3A%2F%2Fkumar-abhinav17.vercel.app%2Fresearch%2Fowasp-top-10-llms.html" target="_blank" rel="noopener">X</a><a class="share-btn" href="https://wa.me/?text=OWASP%20Top%2010%20for%20LLMs%20-%20A%20Practitioner%27s%20Breakdown%20https%3A%2F%2Fkumar-abhinav17.vercel.app%2Fresearch%2Fowasp-top-10-llms.html" target="_blank" rel="noopener">WhatsApp</a></div>
+                        </div>
+                        <header class="reader-header">
+                            <span class="article-category">OWASP</span>
+                            <h1>OWASP Top 10 for LLMs - A Practitioner&#x27;s Breakdown</h1>
+                            <div class="article-meta">
+                                <span>Kumar Abhinav</span>
+                                <span>May 31, 2026</span>
+                                <span>10 min read</span>
+                            </div>
+                        </header>
+                        <div class="reader-body">
+<p>The OWASP GenAI Security Project&#x27;s 2025 LLM Top 10 reframes AI application security around systems, not just models. The risk is rarely &quot;the model is bad&quot; in isolation. It is the model plus retrieval, tools, permissions, data flows, and people trusting the output.</p>
+<h2>Severity Matrix</h2>
+<table class="risk-table"><thead><tr><th>Risk</th><th>Typical Impact</th><th>Priority</th><th>Primary Control</th></tr></thead><tbody><tr><td>LLM01 Prompt Injection</td><td>Instruction override, tool misuse</td><td>Critical</td><td>Trust boundaries and tool gates</td></tr><tr><td>LLM02 Sensitive Information Disclosure</td><td>Data leakage</td><td>High</td><td>Data minimization and redaction</td></tr><tr><td>LLM03 Supply Chain</td><td>Compromised models, plugins, datasets</td><td>High</td><td>SBOM/AIBOM and provenance</td></tr><tr><td>LLM04 Data and Model Poisoning</td><td>Corrupted behavior or retrieval</td><td>High</td><td>Dataset validation and monitoring</td></tr><tr><td>LLM05 Improper Output Handling</td><td>XSS, command injection, unsafe execution</td><td>Critical</td><td>Output validation</td></tr><tr><td>LLM06 Excessive Agency</td><td>Unintended state-changing actions</td><td>Critical</td><td>Least privilege and approvals</td></tr><tr><td>LLM07 System Prompt Leakage</td><td>Policy and internal logic disclosure</td><td>Medium</td><td>Secret hygiene and policy design</td></tr><tr><td>LLM08 Vector and Embedding Weaknesses</td><td>RAG manipulation, data poisoning</td><td>High</td><td>Retrieval controls</td></tr><tr><td>LLM09 Misinformation</td><td>Unsafe decisions from false output</td><td>High</td><td>Grounding and verification</td></tr><tr><td>LLM10 Unbounded Consumption</td><td>Cost blowout or resource exhaustion</td><td>Medium</td><td>Rate limits and budgets</td></tr></tbody></table>
+<h2>LLM01: Prompt Injection</h2>
+<p>Attackers craft input that changes model behavior. Direct injection arrives from a user; indirect injection hides in retrieved content.</p>
+<div class="callout">Real-world case: a web page included hidden text telling a browser assistant to ignore its task and reveal data from the session context.</div>
+<p>Mitigation: label untrusted content, restrict tools, validate actions, and treat model output as untrusted until checked.</p>
+<h2>LLM02: Sensitive Information Disclosure</h2>
+<p>Models can expose secrets through chat responses, logs, traces, embeddings, or overly broad retrieval.</p>
+<div class="callout">Real-world case: an internal assistant answered a query with ticket data the user was not authorized to view because retrieval ignored ACLs.</div>
+<p>Mitigation: enforce authorization at retrieval time, redact secrets, and avoid placing sensitive data in prompts unless necessary.</p>
+<h2>LLM03: Supply Chain</h2>
+<p>AI apps depend on models, packages, prompt templates, datasets, plugins, and external services. Any of them can be compromised.</p>
+<div class="callout">Real-world case: a dependency update changed a helper library used by an AI workflow, silently altering request handling.</div>
+<p>Mitigation: pin dependencies, review model provenance, scan packages, and maintain an AI bill of materials.</p>
+<h2>LLM04: Data and Model Poisoning</h2>
+<p>Attackers manipulate training, fine-tuning, or embedding data to bias outputs or create triggers.</p>
+<div class="callout">Real-world case: a poisoned knowledge article made the assistant prefer an attacker-controlled domain in answers.</div>
+<p>Mitigation: validate dataset sources, monitor drift, separate trusted and untrusted corpora, and review high-impact documents.</p>
+<h2>LLM05: Improper Output Handling</h2>
+<p>Model output becomes dangerous when it is rendered, executed, queried, or passed to tools without validation.</p>
+<div class="callout">Real-world case: an assistant generated HTML that was inserted into an admin page without sanitization.</div>
+<p>Mitigation: escape output, validate against schemas, sandbox generated code, and never pass raw model output to privileged interpreters.</p>
+<h2>LLM06: Excessive Agency</h2>
+<p>Agents become risky when they can take actions beyond what the user intended or what the application can safely supervise.</p>
+<div class="callout">Real-world case: an autonomous workflow closed and reassigned tickets because it over-interpreted a summary instruction.</div>
+<p>Mitigation: use least privilege, per-action approvals, dry-run modes, and small bounded tool scopes.</p>
+<h2>LLM07: System Prompt Leakage</h2>
+<p>System prompts often reveal architecture hints, policy logic, hidden tool names, or operational assumptions.</p>
+<div class="callout">Real-world case: a jailbreak asked for the hidden instruction block and exposed internal routing rules.</div>
+<p>Mitigation: avoid secrets in prompts, assume policy text can leak, and keep security controls outside the prompt when possible.</p>
+<h2>LLM08: Vector and Embedding Weaknesses</h2>
+<p>RAG systems can retrieve the wrong content, leak neighbor data, or rank malicious content highly.</p>
+<div class="callout">Real-world case: a malicious document used repeated semantic phrases to dominate retrieval results.</div>
+<p>Mitigation: enforce ACLs in vector queries, add source reputation, detect duplicate stuffing, and cap per-source retrieval.</p>
+<h2>LLM09: Misinformation</h2>
+<p>Incorrect output becomes a security issue when users rely on it for operational, legal, medical, financial, or safety decisions.</p>
+<div class="callout">Real-world case: a support bot invented a security exception process that users followed.</div>
+<p>Mitigation: ground answers in cited sources, require confidence thresholds, and route high-impact answers to human review.</p>
+<h2>LLM10: Unbounded Consumption</h2>
+<p>Attackers can drive token, compute, storage, or tool-use costs through oversized inputs, loops, or repeated requests.</p>
+<div class="callout">Real-world case: a public endpoint accepted long recursive prompts and exhausted daily inference budget.</div>
+<p>Mitigation: set token budgets, rate limits, recursion caps, timeouts, and per-user cost controls.</p>
+                        </div>
+                        <div class="reader-bottom-actions">
+                            <a class="back-btn" href="../research.html">&lt;- All Research</a>
+                            <div class="share-toolbar"><a class="share-btn" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fkumar-abhinav17.vercel.app%2Fresearch%2Fowasp-top-10-llms.html" target="_blank" rel="noopener">LinkedIn</a><a class="share-btn" href="https://twitter.com/intent/tweet?text=OWASP%20Top%2010%20for%20LLMs%20-%20A%20Practitioner%27s%20Breakdown%20https%3A%2F%2Fkumar-abhinav17.vercel.app%2Fresearch%2Fowasp-top-10-llms.html" target="_blank" rel="noopener">X</a><a class="share-btn" href="https://wa.me/?text=OWASP%20Top%2010%20for%20LLMs%20-%20A%20Practitioner%27s%20Breakdown%20https%3A%2F%2Fkumar-abhinav17.vercel.app%2Fresearch%2Fowasp-top-10-llms.html" target="_blank" rel="noopener">WhatsApp</a></div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <script src="../script.js"></script>
+</body>
+</html>

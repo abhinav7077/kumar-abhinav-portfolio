@@ -5,573 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Security Research | Kumar Abhinav</title>
     <meta name="description" content="Security research by Kumar Abhinav on AI threats, SOC automation, OWASP LLM risks, and emerging attack vectors.">
+    <meta name="author" content="Kumar Abhinav">
+    <meta name="theme-color" content="#030712">
+    <link rel="canonical" href="https://kumar-abhinav17.vercel.app/research.html">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+    <!-- Social preview (LinkedIn, WhatsApp, X) -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Kumar Abhinav">
+    <meta property="og:title" content="Security Research | Kumar Abhinav">
+    <meta property="og:description" content="Deep-dives into AI threats, OWASP LLM risks, SOC automation, and emerging attack vectors.">
+    <meta property="og:url" content="https://kumar-abhinav17.vercel.app/research.html">
+    <meta property="og:image" content="https://kumar-abhinav17.vercel.app/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* === RESEARCH PAGE SELF-CONTAINED STYLES === */
-        body[data-page="research"] {
-            background: #030712;
-            color: #cbd5e1;
-        }
-
-        body[data-page="research"] .bg-effects {
-            background:
-                radial-gradient(circle at 10% 12%, rgba(0, 212, 255, 0.13), transparent 28%),
-                radial-gradient(circle at 86% 18%, rgba(168, 85, 247, 0.12), transparent 28%),
-                linear-gradient(180deg, #030712 0%, #07111d 45%, #030712 100%);
-        }
-
-        .nav-breadcrumb {
-            display: inline-flex;
-            margin-right: 16px;
-            font-family: var(--font-mono, "JetBrains Mono", monospace);
-            font-size: 0.76rem;
-            color: var(--text-500, #64748b);
-            transition: color 0.2s ease;
-        }
-
-        .nav-breadcrumb:hover {
-            color: var(--accent, #00d4ff);
-        }
-
-        .research-hero {
-            position: relative;
-            z-index: 1;
-            min-height: 58vh;
-            display: grid;
-            align-items: end;
-            overflow: hidden;
-            padding: 150px 0 82px;
-        }
-
-        .research-hero::before,
-        .research-hero::after {
-            content: "";
-            position: absolute;
-            pointer-events: none;
-        }
-
-        .research-hero::before {
-            inset: 82px 0 0;
-            background:
-                radial-gradient(circle at 18% 42%, rgba(0, 212, 255, 0.18), transparent 28%),
-                radial-gradient(circle at 76% 34%, rgba(168, 85, 247, 0.18), transparent 30%),
-                linear-gradient(110deg, rgba(0, 212, 255, 0.08), transparent 28%, rgba(168, 85, 247, 0.08));
-        }
-
-        .research-hero::after {
-            width: min(520px, 55vw);
-            aspect-ratio: 1;
-            right: 5vw;
-            bottom: -24%;
-            border-radius: 50%;
-            border: 1px dashed rgba(0, 212, 255, 0.2);
-            background:
-                radial-gradient(circle, rgba(0, 212, 255, 0.08), transparent 58%),
-                repeating-conic-gradient(from 0deg, rgba(0, 212, 255, 0.18) 0 2deg, transparent 2deg 12deg);
-            mask: radial-gradient(circle, transparent 0 36%, #000 37% 100%);
-            animation: researchSpin 30s linear infinite;
-        }
-
-        .research-hero .container {
-            position: relative;
-            z-index: 1;
-        }
-
-        .research-hero h1 {
-            max-width: 850px;
-            margin-bottom: 18px;
-            color: var(--text-100, #f1f5f9);
-            font-family: var(--font-display, "Outfit", sans-serif);
-            font-size: clamp(3.4rem, 7vw, 6rem);
-            line-height: 1.02;
-            font-weight: 900;
-            text-shadow: 0 0 42px rgba(0, 212, 255, 0.22);
-        }
-
-        .research-hero p {
-            max-width: 660px;
-            color: var(--text-400, #94a3b8);
-            font-size: 1.08rem;
-        }
-
-        .research-page-shell {
-            position: relative;
-            z-index: 1;
-            margin-top: -46px;
-            padding-bottom: 100px;
-        }
-
-        .research-page-shell .container {
-            position: relative;
-        }
-
-        /* === FIX: Simple display-based toggle (no opacity/visibility conflicts) === */
-        .research-list-view {
-            display: block;
-        }
-
-        .reader-view {
-            display: none;
-        }
-
-        body.reader-open .research-list-view {
-            display: none !important;
-        }
-
-        body.reader-open .reader-view {
-            display: block !important;
-            animation: readerIn 0.3s ease forwards;
-        }
-
-        @keyframes readerIn {
-            from { opacity: 0; transform: translateX(18px); }
-            to   { opacity: 1; transform: translateX(0); }
-        }
-
-        .featured-article,
-        .research-command-strip,
-        .article-card,
-        .reader-shell {
-            border: 1px solid rgba(0, 212, 255, 0.14);
-            border-radius: 10px;
-            background: rgba(9, 20, 34, 0.76);
-            box-shadow: 0 22px 60px rgba(0, 0, 0, 0.36);
-            backdrop-filter: blur(18px);
-        }
-
-        .featured-article {
-            position: relative;
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 24px;
-            align-items: center;
-            overflow: hidden;
-            min-height: 285px;
-            padding: 36px;
-            margin-bottom: 24px;
-            background:
-                linear-gradient(135deg, rgba(0, 212, 255, 0.14), transparent 28%),
-                radial-gradient(circle at 84% 30%, rgba(168, 85, 247, 0.18), transparent 36%),
-                radial-gradient(circle at 16% 78%, rgba(0, 212, 255, 0.15), transparent 30%),
-                rgba(9, 20, 34, 0.82);
-        }
-
-        .featured-article::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background:
-                linear-gradient(90deg, rgba(255,255,255,0.06), transparent 22%, transparent 72%, rgba(0,212,255,0.08)),
-                repeating-linear-gradient(0deg, transparent 0 16px, rgba(0,212,255,0.035) 17px);
-            pointer-events: none;
-        }
-
-        .featured-article::after {
-            content: "";
-            position: absolute;
-            top: 20px;
-            right: 28px;
-            width: 158px;
-            aspect-ratio: 1;
-            border-radius: 50%;
-            border: 1px dashed rgba(0, 212, 255, 0.24);
-            box-shadow: inset 0 0 34px rgba(0, 212, 255, 0.08), 0 0 34px rgba(168, 85, 247, 0.08);
-            animation: researchSpinReverse 22s linear infinite;
-            pointer-events: none;
-        }
-
-        .featured-content,
-        .featured-actions {
-            position: relative;
-            z-index: 1;
-        }
-
-        .featured-actions {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .featured-kicker,
-        .article-category {
-            display: inline-flex;
-            width: max-content;
-            border: 1px solid rgba(0, 212, 255, 0.22);
-            border-radius: 999px;
-            padding: 4px 10px;
-            color: var(--accent, #00d4ff);
-            background: rgba(0, 212, 255, 0.07);
-            font-family: var(--font-mono, "JetBrains Mono", monospace);
-            font-size: 0.68rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-        }
-
-        .featured-article h2 {
-            max-width: 820px;
-            margin: 14px 0 10px;
-            color: var(--text-100, #f1f5f9);
-            font-family: var(--font-display, "Outfit", sans-serif);
-            font-size: clamp(2rem, 4vw, 3.2rem);
-            line-height: 1.16;
-        }
-
-        .featured-article p,
-        .article-card p {
-            color: var(--text-400, #94a3b8);
-        }
-
-        .featured-meta,
-        .article-author,
-        .article-meta {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            color: var(--text-500, #64748b);
-            font-family: var(--font-mono, "JetBrains Mono", monospace);
-            font-size: 0.72rem;
-        }
-
-        .featured-meta {
-            margin-top: 18px;
-        }
-
-        .avatar {
-            width: 34px;
-            height: 34px;
-            display: grid;
-            place-items: center;
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            border-radius: 50%;
-            color: var(--accent, #00d4ff);
-            background: rgba(0, 212, 255, 0.07);
-            font-weight: 800;
-        }
-
-        .research-command-strip {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 18px;
-            margin: 0 0 20px;
-            padding: 16px 18px;
-            background:
-                linear-gradient(90deg, rgba(0, 212, 255, 0.08), rgba(168, 85, 247, 0.06)),
-                rgba(5, 14, 25, 0.76);
-        }
-
-        .research-command-strip span,
-        .research-command-strip strong {
-            display: block;
-        }
-
-        .research-command-strip span {
-            color: var(--text-600, #475569);
-            font-family: var(--font-mono, "JetBrains Mono", monospace);
-            font-size: 0.68rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-        }
-
-        .research-command-strip strong {
-            color: var(--text-200, #e2e8f0);
-            font-family: var(--font-display, "Outfit", sans-serif);
-        }
-
-        .filter-bar {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 9px;
-            margin: 0 0 24px;
-        }
-
-        .filter-btn,
-        .back-btn,
-        .read-btn,
-        .share-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 38px;
-            border: 1px solid rgba(0, 212, 255, 0.17);
-            border-radius: 8px;
-            padding: 8px 12px;
-            color: var(--accent, #00d4ff);
-            background: rgba(0, 212, 255, 0.06);
-            font-family: var(--font-mono, "JetBrains Mono", monospace);
-            font-size: 0.76rem;
-            font-weight: 700;
-            transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
-            cursor: pointer;
-        }
-
-        .share-btn {
-            color: var(--accent-purple, #a855f7);
-            border-color: rgba(168, 85, 247, 0.24);
-            background: rgba(168, 85, 247, 0.08);
-        }
-
-        .filter-btn:hover,
-        .filter-btn.active,
-        .back-btn:hover,
-        .read-btn:hover,
-        .share-btn:hover {
-            transform: translateY(-2px);
-            border-color: rgba(0, 212, 255, 0.4);
-            background: rgba(0, 212, 255, 0.11);
-        }
-
-        .article-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .article-grid.single-article {
-            grid-template-columns: minmax(0, 1fr);
-        }
-
-        .article-card {
-            position: relative;
-            display: grid;
-            gap: 14px;
-            overflow: hidden;
-            min-height: 220px;
-            padding: 28px;
-            background:
-                radial-gradient(circle at 84% 20%, rgba(0, 212, 255, 0.13), transparent 35%),
-                radial-gradient(circle at 16% 92%, rgba(168, 85, 247, 0.12), transparent 32%),
-                rgba(9, 20, 34, 0.76);
-        }
-
-        .article-card h3 {
-            color: var(--text-100, #f1f5f9);
-            font-family: var(--font-display, "Outfit", sans-serif);
-            font-size: 1.45rem;
-            line-height: 1.25;
-        }
-
-        .article-card-footer,
-        .article-card-actions,
-        .reader-top,
-        .reader-bottom-actions,
-        .share-toolbar {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .article-card-footer,
-        .reader-top,
-        .reader-bottom-actions {
-            justify-content: space-between;
-        }
-
-        .reader-shell {
-            max-width: 940px;
-            margin: 0 auto;
-            padding: 34px;
-            background:
-                radial-gradient(circle at 90% 6%, rgba(168, 85, 247, 0.12), transparent 26%),
-                radial-gradient(circle at 8% 24%, rgba(0, 212, 255, 0.1), transparent 24%),
-                rgba(9, 20, 34, 0.82);
-        }
-
-        .reader-header h1 {
-            margin: 16px 0;
-            color: var(--text-100, #f1f5f9);
-            font-family: var(--font-display, "Outfit", sans-serif);
-            font-size: clamp(2.2rem, 4vw, 3.2rem);
-            line-height: 1.08;
-        }
-
-        .reader-body {
-            color: var(--text-300, #cbd5e1);
-        }
-
-        .reader-body h2,
-        .reader-body h3 {
-            margin: 34px 0 12px;
-            color: var(--text-100, #f1f5f9);
-            font-family: var(--font-display, "Outfit", sans-serif);
-            line-height: 1.2;
-        }
-
-        .reader-body p,
-        .reader-body li {
-            margin: 12px 0;
-            color: var(--text-400, #94a3b8);
-        }
-
-        .reader-body ul,
-        .reader-body ol {
-            margin-left: 22px;
-            list-style: disc;
-        }
-
-        .reader-body ol {
-            list-style: decimal;
-        }
-
-        .reader-body pre {
-            overflow-x: auto;
-            margin: 18px 0;
-            padding: 18px;
-            border: 1px solid rgba(0, 212, 255, 0.14);
-            border-radius: 8px;
-            background: rgba(2, 8, 16, 0.82);
-            color: var(--text-200, #e2e8f0);
-            font-family: var(--font-mono, "JetBrains Mono", monospace);
-            font-size: 0.82rem;
-            line-height: 1.55;
-        }
-
-        .reader-body code {
-            font-family: var(--font-mono, "JetBrains Mono", monospace);
-        }
-
-        .reader-body :not(pre) > code {
-            border: 1px solid rgba(0, 212, 255, 0.14);
-            border-radius: 6px;
-            padding: 1px 5px;
-            color: var(--accent, #00d4ff);
-            background: rgba(0, 212, 255, 0.06);
-        }
-
-        .risk-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 18px 0;
-            overflow: hidden;
-            border-radius: 8px;
-            font-size: 0.88rem;
-        }
-
-        .risk-table th,
-        .risk-table td {
-            border: 1px solid rgba(0, 212, 255, 0.12);
-            padding: 10px;
-            text-align: left;
-        }
-
-        .risk-table th {
-            color: var(--text-100, #f1f5f9);
-            background: rgba(0, 212, 255, 0.08);
-        }
-
-        .callout {
-            margin: 18px 0;
-            padding: 16px 18px;
-            border: 1px solid rgba(247, 184, 75, 0.24);
-            border-left: 3px solid var(--accent-amber, #f59e0b);
-            border-radius: 8px;
-            background: rgba(247, 184, 75, 0.07);
-        }
-
-        .callout.tip {
-            border-color: rgba(34, 211, 167, 0.24);
-            border-left-color: var(--accent-green, #22d3a7);
-            background: rgba(34, 211, 167, 0.07);
-        }
-
-        .reader-bottom-actions {
-            margin-top: 34px;
-            padding-top: 22px;
-            border-top: 1px solid rgba(0, 212, 255, 0.12);
-        }
-
-        .site-toast {
-            position: fixed;
-            left: 50%;
-            bottom: 28px;
-            z-index: 9998;
-            transform: translate(-50%, 16px);
-            opacity: 0;
-            pointer-events: none;
-            border: 1px solid rgba(0, 212, 255, 0.24);
-            border-radius: 8px;
-            padding: 10px 14px;
-            color: var(--text-100, #f1f5f9);
-            background: rgba(3, 7, 18, 0.92);
-            box-shadow: 0 0 32px rgba(0, 212, 255, 0.14);
-            font-family: var(--font-mono, "JetBrains Mono", monospace);
-            font-size: 0.76rem;
-            transition: opacity 0.2s ease, transform 0.2s ease;
-        }
-
-        .site-toast.visible {
-            opacity: 1;
-            transform: translate(-50%, 0);
-        }
-
-        /* === FIX: Kill pointer-events on ALL background overlay elements === */
-        #particle-canvas,
-        #hex-grid-canvas,
-        .bg-gradient-orb,
-        .bg-noise,
-        .bg-grid,
-        .cursor-dot,
-        .cursor-ring {
-            pointer-events: none !important;
-        }
-
-        .article-card.is-hidden { display: none; }
-
-        @keyframes researchSpin {
-            to { transform: rotate(360deg); }
-        }
-
-        @keyframes researchSpinReverse {
-            to { transform: rotate(-360deg); }
-        }
-
-        @media (max-width: 900px) {
-            .featured-article,
-            .article-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .research-command-strip,
-            .featured-actions {
-                align-items: stretch;
-            }
-
-            .research-command-strip {
-                flex-direction: column;
-            }
-        }
-
-        @media (max-width: 620px) {
-            .research-hero {
-                padding-top: 124px;
-            }
-
-            .featured-article,
-            .reader-shell {
-                padding: 22px;
-            }
-
-            .reader-top,
-            .reader-bottom-actions,
-            .article-card-footer {
-                align-items: flex-start;
-                flex-direction: column;
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .research-hero::after,
-            .featured-article::after {
-                animation: none;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="research.css">
 </head>
 <body data-page="research">
     <!-- === CUSTOM CURSOR === -->
@@ -653,7 +107,6 @@
                             <span>Article Library</span>
                             <strong data-article-count>0 live articles</strong>
                         </div>
-                        <a href="articles/article-template.md" class="read-btn" download>Download Article Template</a>
                     </div>
 
                     <div class="filter-bar" aria-label="Research category filters" data-filter-bar>
@@ -861,7 +314,7 @@ Mitigation: label untrusted content, restrict tools, validate actions, and treat
                             </div>
                             <div class="article-card-actions">
                                 <button class="share-btn" data-share-article="${escapeAttr(a.id)}">Share</button>
-                                <button class="read-btn" data-open-article="${escapeAttr(a.id)}">Read Article -&gt;</button>
+                                <a class="read-btn" href="${escapeAttr(articlePath(a))}" data-open-article="${escapeAttr(a.id)}">Read Article -&gt;</a>
                             </div>
                         </div>
                     </article>
@@ -876,7 +329,10 @@ Mitigation: label untrusted content, restrict tools, validate actions, and treat
             function wireEvents() {
                 /* Open article buttons (re-runs after each renderCards / renderFeatured) */
                 document.querySelectorAll("[data-open-article]").forEach((btn) => {
-                    btn.addEventListener("click", () => openArticle(btn.dataset.openArticle));
+                    btn.addEventListener("click", (e) => {
+                        e.preventDefault();
+                        openArticle(btn.dataset.openArticle);
+                    });
                 });
 
                 /* Share buttons on cards + featured */
@@ -927,14 +383,10 @@ Mitigation: label untrusted content, restrict tools, validate actions, and treat
                 renderShareToolbar(article, document.querySelector("[data-share-toolbar]"));
                 renderShareToolbar(article, document.querySelector("[data-share-toolbar-bottom]"));
 
-                /* FIX: re-wire share buttons injected into the reader */
-                document.querySelectorAll("[data-share-article]").forEach((btn) => {
+                /* Wire only the share buttons just rendered into the reader toolbars;
+                   card/featured buttons and back buttons are already wired in wireEvents() */
+                document.querySelectorAll("[data-share-toolbar] [data-share-article], [data-share-toolbar-bottom] [data-share-article]").forEach((btn) => {
                     btn.addEventListener("click", () => shareArticle(article));
-                });
-
-                /* FIX: re-wire back buttons (they're static HTML but wire again to be safe) */
-                document.querySelectorAll("[data-reader-back]").forEach((btn) => {
-                    btn.addEventListener("click", closeArticle);
                 });
 
                 document.body.classList.add("reader-open");
@@ -1004,6 +456,7 @@ Mitigation: label untrusted content, restrict tools, validate actions, and treat
                 const title = meta.title || titleCase(file.replace(/\.md$/, "").replace(/[-_]+/g, " "));
                 return {
                     id:             meta.id || slugify(title),
+                    slug:           file.replace(/\.md$/, ""),
                     title,
                     category:       meta.category || "Research",
                     date:           meta.date || "",
@@ -1127,8 +580,13 @@ Mitigation: label untrusted content, restrict tools, validate actions, and treat
 
             /* ── Utility ──────────────────────────────────────────── */
 
+            /* Static, indexable page generated by build_articles.py */
+            function articlePath(article) {
+                return `research/${article.slug}.html`;
+            }
+
             function articleUrl(article) {
-                return `${window.location.href.split("#")[0]}#${article.id}`;
+                return new URL(articlePath(article), window.location.href).href;
             }
 
             function estimateReadTime(text) {
