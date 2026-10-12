@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kumar-abhinav17.vercel.app/sitemap.xml

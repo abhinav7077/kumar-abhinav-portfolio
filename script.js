@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initNavbar();
     initScrollReveal();
     initSmoothScroll();
+    initFooterYear();
 });
 
 /* ============================
@@ -16,6 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
 function initParticles() {
     const canvas = document.getElementById('particle-canvas');
     if (!canvas) return;
+    // Respect the visitor's OS-level "reduce motion" setting
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const ctx = canvas.getContext('2d');
 
     let width, height, particles, mouse;
@@ -86,8 +89,9 @@ function initParticles() {
         }
     }
 
-    // Calculate particle count based on screen size
-    const particleCount = Math.min(Math.floor((width * height) / 12000), 120);
+    // Calculate particle count based on screen size (fewer on phones)
+    const maxParticles = width < 768 ? 40 : 120;
+    const particleCount = Math.min(Math.floor((width * height) / 12000), maxParticles);
     particles = Array.from({ length: particleCount }, () => new Particle());
 
     function drawConnections() {
@@ -110,7 +114,15 @@ function initParticles() {
         }
     }
 
+    let running = true;
+    // Stop drawing while the tab is in the background
+    document.addEventListener('visibilitychange', () => {
+        running = !document.hidden;
+        if (running) requestAnimationFrame(animate);
+    });
+
     function animate() {
+        if (!running) return;
         ctx.clearRect(0, 0, width, height);
 
         particles.forEach(p => {
@@ -152,8 +164,9 @@ function initNavbar() {
 
     // Mobile toggle
     toggle.addEventListener('click', () => {
-        links.classList.toggle('active');
-        toggle.classList.toggle('open');
+        const isOpen = links.classList.toggle('active');
+        toggle.classList.toggle('open', isOpen);
+        toggle.setAttribute('aria-expanded', String(isOpen));
     });
 
     // Close menu on link click
@@ -161,6 +174,7 @@ function initNavbar() {
         link.addEventListener('click', () => {
             links.classList.remove('active');
             toggle.classList.remove('open');
+            toggle.setAttribute('aria-expanded', 'false');
         });
     });
 }
@@ -253,4 +267,12 @@ function initSmoothScroll() {
             }
         });
     });
+}
+
+/* ============================
+   FOOTER YEAR
+   ============================ */
+function initFooterYear() {
+    const year = document.getElementById('footer-year');
+    if (year) year.textContent = new Date().getFullYear();
 }
