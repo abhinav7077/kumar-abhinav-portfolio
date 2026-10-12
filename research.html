@@ -8,7 +8,9 @@
     <meta name="author" content="Kumar Abhinav">
     <meta name="theme-color" content="#030712">
     <link rel="canonical" href="https://kumar-abhinav17.vercel.app/research.html">
+    <link rel="icon" href="favicon.ico" sizes="32x32">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="favicon.svg">
 
     <!-- Social preview (LinkedIn, WhatsApp, X) -->
     <meta property="og:type" content="website">
@@ -575,6 +577,7 @@ Mitigation: label untrusted content, restrict tools, validate actions, and treat
                 return escapeHtml(text)
                     .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
                     .replace(/`([^`]+)`/g, "<code>$1</code>")
+                    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" loading="lazy" class="article-figure">')
                     .replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
             }
 

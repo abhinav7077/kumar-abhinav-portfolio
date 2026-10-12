@@ -1411,3 +1411,79 @@ button:focus-visible {
     text-decoration: none;
 }
 .cred-item a:hover { text-decoration: underline; }
+
+/* ============================================
+   GLASSMORPHISM REFINEMENT
+   Frosted-glass surfaces over the gradient orbs.
+   Blur is scoped to the larger panels for performance;
+   small pills get translucency without their own blur layer.
+   ============================================ */
+:root {
+    --glass-bg: rgba(15, 23, 42, 0.42);
+    --glass-bg-hover: rgba(24, 34, 60, 0.6);
+    --glass-border: rgba(150, 200, 255, 0.14);
+    --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+    --glass-blur: saturate(160%) blur(16px);
+}
+
+.project-card,
+.arsenal-category,
+.tl-card,
+.research-card,
+.contact-link,
+.about-terminal {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: var(--glass-blur);
+    box-shadow: var(--glass-highlight), 0 14px 44px rgba(0, 0, 0, 0.3);
+}
+
+.project-card:hover,
+.arsenal-category:hover,
+.tl-card:hover,
+.research-card:hover,
+.contact-link:hover,
+.about-terminal:hover {
+    background: var(--glass-bg-hover);
+    box-shadow: var(--glass-highlight), var(--glow), 0 24px 70px rgba(0, 0, 0, 0.42);
+}
+
+/* Softer, glassier nav even before scroll */
+.navbar {
+    -webkit-backdrop-filter: saturate(150%) blur(10px);
+    backdrop-filter: saturate(150%) blur(10px);
+}
+
+/* Pills & chips: translucent, no extra blur layer */
+.skill-pill,
+.cert-chip,
+.stack-chip {
+    background: rgba(148, 197, 255, 0.06);
+    border: 1px solid var(--glass-border);
+}
+.skill-pill:hover,
+.cert-chip:hover {
+    background: rgba(0, 212, 255, 0.12);
+    border-color: var(--border-active);
+}
+
+/* Frost the status bar and credential blocks too */
+.hero-status-bar,
+.cred-block {
+    -webkit-backdrop-filter: saturate(150%) blur(12px);
+    backdrop-filter: saturate(150%) blur(12px);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+}
+.hero-status-bar { padding: 14px 20px; }
+.cred-block { padding: 24px; }
+
+/* Graceful fallback where backdrop-filter is unsupported */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .project-card, .arsenal-category, .tl-card, .research-card,
+    .contact-link, .about-terminal, .hero-status-bar, .cred-block {
+        background: rgba(13, 20, 38, 0.92);
+    }
+}

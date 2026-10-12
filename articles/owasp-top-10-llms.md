@@ -5,7 +5,7 @@ category: OWASP
 date: May 31, 2026
 readTime: 10 min read
 excerpt: The 2025 LLM risk list translated into examples, severity thinking, and mitigation choices for builders.
-featured: true
+featured: false
 ---
 
 The OWASP GenAI Security Project's 2025 LLM Top 10 reframes AI application security around systems, not just models. The risk is rarely "the model is bad" in isolation. It is the model plus retrieval, tools, permissions, data flows, and people trusting the output.
